@@ -1,5 +1,5 @@
 class Graphics{
   public:
     Graphics(???);
-    void draw(vector<Planet> planets, vector<Moship> moships>, vector<SpaceyShipyThings> SST);
+    void draw(std::vector<Planet> planets, std::vector<Moship> moships>, std::vector<SpaceyShipyThings> SST);
 };
