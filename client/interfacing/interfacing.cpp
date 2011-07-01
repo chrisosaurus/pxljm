@@ -9,13 +9,17 @@
 
 #define PI 3.14
 
-Interfacing::Interfacing(ClientGame& ga)
-  : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close), game(ga) {
+Interfacing::Interfacing(ClientGame& ga, Player *p)
+  : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close),
+    game(ga) {
+      me = p;
 }
 
-// TODO we prob won't be using a vector<Mothership> but a vector<Player> and then a pointer through them
 void Interfacing::draw(std::vector<Planet> &planets, std::vector<Player> &players, std::vector<Fleet> &fleets){
   window.Clear();
+
+  unsigned int frametime = window.GetFrameTime();
+  unsigned int gametime = clock.GetElapsedTime(); // TODO to be consistant, is this ok?
 
   // draw ships first
   for( int i=0; i<fleets.size(); ++i){
@@ -23,6 +27,7 @@ void Interfacing::draw(std::vector<Planet> &planets, std::vector<Player> &player
     // TODO adjust colour based on player
     sf::Color c = sf::Color::Red;
     Fleet &fleet = fleets[i]; // TODO go through ships below
+    fleet.update(me->get_moship()->get_x(), me->get_moship()->get_y(), gametime, frametime);
     for( int j=0; j<fleet.ships.size(); ++j){
       Ship * s = fleet.ships[i];
       ship.AddPoint(s->screenX+1, s->screenY,   c, c);
