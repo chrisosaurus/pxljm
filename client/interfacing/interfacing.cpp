@@ -1,14 +1,14 @@
 #include <SFML/Graphics.hpp>
-#include <graphics.hpp>
+#include <interfacing.hpp>
 
-Graphics::Graphics(???){
-
-}
-
-void Graphics::draw(const std::vector<Planet> &planets, const std::vector<Mothership> &motherships, const std::vector<Ship> &ships){
+Interfaces::Interfaces(???){
 
 }
 
-void Graphics::draw_string(const std::string &val){
+void Interfaces::draw(const std::vector<Planet> &planets, const std::vector<Mothership> &motherships, const std::vector<Ship> &ships){
+
+}
+
+void Interfaces::draw_string(const std::string &val){
 
 }
