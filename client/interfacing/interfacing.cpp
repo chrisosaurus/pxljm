@@ -7,7 +7,8 @@ Interfacing::Interfacing(ClientGame& ga)
   : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close), game(ga) {
 }
 
-void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Mothership> &motherships, const std::vector<Fleet> &fleets){
+// TODO we prob won't be using a vector<Mothership> but a vector<Player> and then a pointer through them
+void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Mothership> &moships, const std::vector<Fleet> &fleets){
   window.Clear();
 
   // draw ships first
@@ -25,11 +26,12 @@ void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Mot
 
   for( int i=0; i<planets.size(); ++i){
     sf::Color c = sf::Color::Blue; // TODO define per player
-    sf::Shape planet = sf::Shape::Circle(planets[i].get_x(), planets[i].get_y(), planets[i].get_raius(), c, 0, c); // TODO handle highlighting later
+    sf::Shape planet = sf::Shape::Circle(planets[i].get_x(), planets[i].get_y(), planets[i].get_radius(), c, 0, c); // TODO handle highlighting later
     window.Draw(planet);
     // TODO draw planets here
   }
 
+  // TODO watch this space, moship will prob become player
   for( int i=0; i<moships.size(); ++i){
     sf::Color c = sf::Color::Green; // TODO define per player and/or make a better moship
     sf::Shape moship;
@@ -46,13 +48,18 @@ void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Mot
 }
 
 void Interfacing::draw_string(const std::string &val, int x, int y){
-  
+  sf::Text text(val);
+  text.SetX(x);
+  text.SetY(y);
+  window.Draw(text);
+  window.Display(); // TODO possibly remove, depending if public or private (if priv, dont need)
 }
 
 void Interfacing::main(){
   const sf::Input &input = window.GetInput();
   sf::Event event;
-  int mx, my;
+  int mx, my, lx, ly; // mouse x and y this frame (only used if clicked), last x and y when mouse was clicked
+
 
   // go go go !
   while(window.IsOpened()){
