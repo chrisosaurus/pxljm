@@ -46,7 +46,7 @@ void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Pla
     moship.AddPoint(ms->get_x()-2, ms->get_y()-2, c, c);
     moship.AddPoint(ms->get_x()-2, ms->get_y()+2, c, c);
     moship.EnableFill(false);
-    moship.Rotate(moship[i].get_rotation());
+    moship.Rotate(ms->get_rotation());
     window.Draw(moship);
   }
 
@@ -71,10 +71,10 @@ void Interfacing::main(){
   while(window.IsOpened()){
     // check for closing events
     while(window.PollEvent(event))
-      if(Event.Type == sf::Event::Closed)
+      if(event.Type == sf::Event::Closed)
         window.Close();
-      else if((Event.Type == sf::Event::KeyPressed) && (event.Key.Code == sf::Key::Escape))
-        window.close();
+      else if((event.Type == sf::Event::KeyPressed) && (event.Key.Code == sf::Key::Escape))
+        window.Close();
 
     // if we are here, we are alive!
     mx = input.GetMouseX();
