@@ -16,7 +16,7 @@ public:
      */
     void remove_ships(int amount);
 
-    Fleet &launch_fleet();
+    virtual Fleet &launch_fleet();
     
     virtual void logic();
 };
