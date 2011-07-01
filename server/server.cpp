@@ -51,5 +51,24 @@ bool Server::run()
   // Main loop yay
   while (true)
   {
+    if (selector.Wait())
+    {
+      for (int i = 0; i < client_list.size(); ++i)
+      {
+        sf::TcpSocket *client_sending = client_list[i];
+        if (selector.IsReady(*client_sending))
+        {
+          //receive fleet
+        }
+        for (int j = 0; j < client_list.size(); ++j)
+        {
+          if (client_list[j] == client_sending)
+          {
+            continue;
+          }
+          //send fleet
+        }
+      }
+    }
   }
 }
