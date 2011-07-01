@@ -6,7 +6,16 @@ Interfacing::Interfacing(Client &cl)
 }
 
 void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Mothership> &motherships, const std::vector<Fleet> &fleets){
-  
+  for( int i=0; i< ships.size(); ++i){
+    sf::Shape ship;
+    // TODO adjust colour based on player
+    sf::Color c = sf::Color::Red;
+    ship.AddPoint(ships[i].screenX+1, ships[i].screenY,   c, c);
+    ship.AddPoint(ships[i].screenX-1, ships[i].screenY-1, c, c);
+    ship.AddPoint(ships[i].screenX-1, ships[i].screenY+1, c, c);
+    ship.EnableFill(false);
+    ship.Rotate();//TODO
+  }
 }
 
 void Interfacing::draw_string(const std::string &val, int x, int y){
