@@ -17,6 +17,7 @@ SET(SRCS
   ./game/game.hpp
   ./game/game.cpp
   ./game/planet.hpp
+  ./game/planet.cpp
   ./game/ship.cpp
   ./game/planets/barrierplanet.hpp
   ./game/fleet.hpp
