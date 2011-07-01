@@ -5,14 +5,14 @@ class Ship {
 public:
 
   // only to be accessed by Fleet
-  int x;  
+  int x;
   int y;
-  
+
   // to be accessed by draw
-  int screenX; 
+  int screenX;
   int screenY;
   float rot;  // in radians
-  
+
   Ship(int offsetX, int offsetY);
 };
 
