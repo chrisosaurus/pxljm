@@ -1,3 +1,5 @@
+#ifndef NETWORKING_H
+#define NETWORKING_H
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -44,3 +46,4 @@ class Client
      */
     bool send_fleet(Fleet *fleet_to_send);
 };
+#endif

@@ -1,5 +1,5 @@
-#ifndef INTERFACING
-#define INTERFACING
+#ifndef INTERFACING_H
+#define INTERFACING_H
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 class Client;

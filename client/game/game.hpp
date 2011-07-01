@@ -1,5 +1,5 @@
-#ifndef CLIENTGAME
-#define CLIENTGAME
+#ifndef CLIENTGAME_H
+#define CLIENTGAME_H
 #include <vector>
 
 class Planet;

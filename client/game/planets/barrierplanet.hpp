@@ -1,3 +1,5 @@
+#ifndef BARRIERPLANET_H
+#define BARRIERPLANET_H
 #include "../planet.hpp"
 
 class BarrierPlanet : public Planet {
@@ -9,3 +11,4 @@ class BarrierPlanet : public Planet {
 
     Fleet *launch_fleet(Planet &dest);
 };
+#endif

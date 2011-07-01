@@ -1,5 +1,5 @@
-#ifndef FLEET
-#define FLEET
+#ifndef FLEET_H
+#define FLEET_H
 #include <vector>
 
 class Planet;

@@ -1,5 +1,5 @@
-#ifndef MOTHERSHIP
-#define MOTHERSHIP
+#ifndef MOTHERSHIP_H
+#define MOTHERSHIP_H
 class Mothership {
     const int x;
     const int y;

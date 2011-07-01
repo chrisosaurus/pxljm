@@ -1,5 +1,5 @@
-#ifndef PLANET
-#define PLANET
+#ifndef PLANET_H
+#define PLANET_H
 class Fleet;
 
 class Planet {
