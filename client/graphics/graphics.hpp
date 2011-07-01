@@ -1,6 +1,6 @@
 class Graphics{
   public:
     Graphics(???);
-    void draw(const std::vector<Planet>& planets, const std::vector<Moship>& moships, const std::vector<SpaceyShipyThings>& SST);
-    void draw_string(const std::string& st);
+    void draw(const std::vector<Planet> &planets, const std::vector<Mothership> &motherships, const std::vector<Ship> &ships);
+    void draw_string(const std::string &val);
 };
