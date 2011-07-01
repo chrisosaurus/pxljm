@@ -43,9 +43,13 @@ bool Server::run()
     }
   }
   std::cout << "All clients have connected. Sending ready query..." << std::endl;
+
+  sf::Packet ready_message;
+  std::string message = "Ready";
+  ready_message << message;
   for (int i = 0; i < client_list.size(); ++i)
   {
-    client_list[i]->Send("Ready", 6);
+    client_list[i]->Send(ready_message);
   }
 
   // Wait for ready responses
