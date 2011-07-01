@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "../game/fleet.hpp"
 #include <SFML/Network.hpp>
 
 class Client
@@ -26,7 +27,10 @@ class Client
     /**
      *
      */
-    bool receive_action();
-
-    bool send_action();
+    bool receive_action(Fleet *fleet_received);
+    
+    /**
+     * @brief send new fleet creation to server
+     */
+    bool send_fleet(Fleet *fleet_to_send);
 };

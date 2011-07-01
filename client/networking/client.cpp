@@ -19,3 +19,7 @@ bool Client::init()
     return false;
   }
 }
+
+bool send_fleet(Fleet *fleet_to_send)
+{
+}
