@@ -1,6 +1,6 @@
 #include "server.hpp"
 
-Server::Server(const unsigned int &listening_port, const int &num_clients)
+Server::Server(unsigned int listening_port, int num_clients)
   : port(listening_port),
   clients(num_clients)
 {
