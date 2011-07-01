@@ -16,8 +16,7 @@ bool Server::init()
   std::cout << "Trying to listen on port " << port << std::endl;
   if (listener.Listen(port) != sf::Socket::Done)
   {
-    std::cout << "Could not create socket" << std::endl;
-    error = "Could not create socket";
+    error = "Error: Could not create socket.";
     return false;
   }
   int clients_so_far = 0;

@@ -2,7 +2,7 @@
 
 int main()
 {
-  Server my_server(55001, 1);
+  Server my_server(7000, 1);
   if (!my_server.init())
   {
     std::cout << my_server.get_error() << std::endl;
