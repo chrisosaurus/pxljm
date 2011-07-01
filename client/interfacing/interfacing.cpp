@@ -55,11 +55,11 @@ void Interfacing::draw_string(const std::string &val, int x, int y){
   window.Display(); // TODO possibly remove, depending if public or private (if priv, dont need)
 }
 
+// THE main loop xD (also most of the glue)
 void Interfacing::main(){
   const sf::Input &input = window.GetInput();
   sf::Event event;
-  int mx, my, lx, ly; // mouse x and y this frame (only used if clicked), last x and y when mouse was clicked
-
+  int mx=-1, my=-1, lx=-1, ly=-1; // mouse x and y this frame (only used if clicked), last x and y when mouse was clicked
 
   // go go go !
   while(window.IsOpened()){
@@ -73,6 +73,27 @@ void Interfacing::main(){
     // if we are here, we are alive!
     mx = input.GetMouseX();
     my = input.GetMouseY();
+    // a left click either means:
+    //    if there was a click last frame:
+    //      make an event happen
+    //    otherwise:
+    //      record a click
+    // a right click means: delete the click if it was recorded last frame
+    if(input.IsMouseButtonDown(sf::Mouse::Right)){
+      // a left click could be an action
+      if( ly > 0){ // omg, DO SOMETHING
+        // TODO do something here (send an event to someone)
+        // TODO get planet, if null throw away x and y. if there is a planet there, record this. if we clicked somewhere before
+      } else { // if we didn't record last frame, record
+        lx = mx;
+        ly = my;
+      }
+    } else if(input.IsMouseButtonDown(sf::Mouse::Right)){
+      // a right click "empties" the stack"
+      lx=-1;
+      ly=-1;
+    }
     // do awesome things TODO
+
   }
 }
