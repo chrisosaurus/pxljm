@@ -6,8 +6,11 @@ private:
     const int x;
     const int y;
     const int radius;
+
+    const int id;
+    
 public:
-    Planet(int X, int Y, int Radius);
+    Planet(int vx, int vy, int vradius, int vid);
     
     ~Planet();
     
@@ -18,6 +21,8 @@ public:
     int get_radius() const;
 
     int get_ship_count() const;
+
+    int get_id() const;
 
     /**
      * Removes ships (for instance, when this Planet is being attacked by a fleet)
