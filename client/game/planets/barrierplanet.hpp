@@ -1,5 +1,7 @@
+#include "../planet.hpp"
+
 class BarrierPlanet : public Planet {
-    BarrierPlanet();
+    BarrierPlanet(int vx, int vy, int vradius, int vid);
 
     ~BarrierPlanet();
 
