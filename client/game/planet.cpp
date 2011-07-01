@@ -7,3 +7,4 @@ int Planet::get_y() const { return y; }
 
 int Planet::get_radius() const { return radius; }
 
+int Planet::get_id() const { return id; }
