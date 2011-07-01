@@ -5,5 +5,5 @@ class BarrierPlanet : public Planet {
 
     void remove_ships(int amount);
 
-    Fleet *launch_fleet();
+    Fleet *launch_fleet(Planet &dest);
 };
