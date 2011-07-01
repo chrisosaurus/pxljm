@@ -14,7 +14,7 @@ Interfacing::Interfacing(ClientGame& ga)
 }
 
 // TODO we prob won't be using a vector<Mothership> but a vector<Player> and then a pointer through them
-void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Player> &players, const std::vector<Fleet> &fleets){
+void Interfacing::draw(std::vector<Planet> &planets, std::vector<Player> &players, std::vector<Fleet> &fleets){
   window.Clear();
 
   // draw ships first
@@ -23,12 +23,15 @@ void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Pla
     // TODO adjust colour based on player
     sf::Color c = sf::Color::Red;
     Fleet &fleet = fleets[i]; // TODO go through ships below
-    ship.AddPoint(fleets[i].screenX+1, fleets[i].screenY,   c, c);
-    ship.AddPoint(fleets[i].screenX-1, fleets[i].screenY-1, c, c);
-    ship.AddPoint(fleets[i].screenX-1, fleets[i].screenY+1, c, c);
-    ship.EnableFill(false);
-    ship.Rotate(fleets[i].rot * PI/180); // oh god, it burns! also: PI is exactly 3
-    window.Draw(ship);
+    for( int j=0; j<fleet.ships.size(); ++j){
+      Ship * s = fleet.ships[i];
+      ship.AddPoint(s->screenX+1, s->screenY,   c, c);
+      ship.AddPoint(s->screenX-1, s->screenY-1, c, c);
+      ship.AddPoint(s->screenX-1, s->screenY+1, c, c);
+      ship.EnableFill(false);
+      ship.Rotate(s->rot * PI/180); // oh god, it burns! also: PI is exactly 3
+      window.Draw(ship);
+    }
   }
 
   for( int i=0; i<planets.size(); ++i){
