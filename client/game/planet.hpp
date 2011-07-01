@@ -1,3 +1,6 @@
+
+class Fleet;
+
 class Planet {
 public:
     Planet();
@@ -16,7 +19,7 @@ public:
      */
     void remove_ships(int amount);
 
-    virtual Fleet &launch_fleet();
+    virtual Fleet *launch_fleet();
     
     virtual void logic();
 };
