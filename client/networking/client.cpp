@@ -20,9 +20,11 @@ bool Client::init()
   }
   char ready_message[8];
   std::size_t received = 0;
+  bool started = false;
   client.Receive(ready_message, sizeof(ready_message), received);
-  if (strcmp (ready_message, "Ready") == 0)
+  if (!strcmp(ready_message, "Ready"))
   {
+    started = true;
     std::cout << "Received ready message. Time to play!" << std::endl;
   }
 }
