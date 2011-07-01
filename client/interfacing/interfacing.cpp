@@ -82,8 +82,18 @@ void Interfacing::main(){
     if(input.IsMouseButtonDown(sf::Mouse::Right)){
       // a left click could be an action
       if( ly > 0){ // omg, DO SOMETHING
-        // TODO do something here (send an event to someone)
-        // TODO get planet, if null throw away x and y. if there is a planet there, record this. if we clicked somewhere before
+        Planet *p = game.find_nearest_planet(lx, ly);
+        if(p){
+          // planet in the from, is there a plen in the too
+          Planet *p2 = game.find_nearest_planet(mx, my);
+          // send event, or ignore
+          if(p2)
+            game.launch_fleet(*p, *p2);
+        } else {
+          // no planet in the from position, so ignore it
+          lx = mx;
+          ly = my;
+        }
       } else { // if we didn't record last frame, record
         lx = mx;
         ly = my;
@@ -93,7 +103,6 @@ void Interfacing::main(){
       lx=-1;
       ly=-1;
     }
-    // do awesome things TODO
 
   }
 }
