@@ -1,3 +1,6 @@
+
+class Fleet;
+
 class Planet {
 public:
     Planet();
