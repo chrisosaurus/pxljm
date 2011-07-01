@@ -25,6 +25,7 @@ bool Client::init()
   if ((ready_message >> message) && (message == "Ready"))
   {
     std::cout << "Received ready message. Sending reply." << std::endl;
+    ready_message.Clear();
   }
   else
   {
@@ -32,7 +33,9 @@ bool Client::init()
     return false;
   }
 
-  client.Send("Ready", 6);
+  message = "Ready";
+  ready_message << message;
+  client.Send(ready_message);
 }
 
 bool send_fleet(Fleet *fleet_to_send)
