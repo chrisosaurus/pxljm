@@ -42,11 +42,38 @@ bool Server::run()
       }
     }
   }
-  std::cout << "All clients have connected. Starting game..." << std::endl;
+  std::cout << "All clients have connected. Sending ready query..." << std::endl;
   for (int i = 0; i < client_list.size(); ++i)
   {
     client_list[i]->Send("Ready", 6);
   }
+
+  // Wait for ready responses
+  int ready = 0;
+  while (ready < clients)
+  {
+    if (selector.Wait())
+    {
+      for (int i = 0; i < client_list.size(); ++i)
+      {
+        sf::TcpSocket *client_sending = client_list[i];
+        if (selector.IsReady(*client_sending))
+        {
+          char ready_message[8];
+          std::size_t received;
+          client_sending->Receive(ready_message, sizeof(ready_message), received);
+          if (!strcmp(ready_message, "Ready"))
+          {
+            std::cout << "Client " << i << " is ready" << std::endl;
+            ++ready;
+          }
+        }
+      }
+    }
+  }
+
+  // TODO: Send planets
+
 
   // Main loop yay
   while (true)
