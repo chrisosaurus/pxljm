@@ -4,7 +4,7 @@
 #include "ship.hpp"
 #include "fleet.hpp"
 #include "planet.hpp"
-#include "mothership.cpp"
+#include "mothership.hpp"
 #include "player.hpp"
 
 #define FLEET_SPEED 10  // TODO: figure out the actual fleet speed
