@@ -7,7 +7,7 @@
 #include "../game/player.hpp"
 #include "interfacing.hpp"
 
-#define pi 3.14
+#define PI 3.14
 
 Interfacing::Interfacing(ClientGame& ga)
   : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close), game(ga) {
