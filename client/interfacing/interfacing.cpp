@@ -1,4 +1,9 @@
 #include <SFML/Graphics.hpp>
+#include <../ship.hpp>
+#include <../fleet.hpp>
+#include <../game/planet.hpp>
+#include <../game/mothership.hpp>
+#include <../game/player.hpp>
 #include <interfacing.hpp>
 
 #define pi 3.14
@@ -8,7 +13,7 @@ Interfacing::Interfacing(ClientGame& ga)
 }
 
 // TODO we prob won't be using a vector<Mothership> but a vector<Player> and then a pointer through them
-void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Mothership> &moships, const std::vector<Fleet> &fleets){
+void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Player> &players, const std::vector<Fleet> &fleets){
   window.Clear();
 
   // draw ships first
@@ -28,20 +33,19 @@ void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Mot
     sf::Color c = sf::Color::Blue; // TODO define per player
     sf::Shape planet = sf::Shape::Circle(planets[i].get_x(), planets[i].get_y(), planets[i].get_radius(), c, 0, c); // TODO handle highlighting later
     window.Draw(planet);
-    // TODO draw planets here
   }
 
   // TODO watch this space, moship will prob become player
-  for( int i=0; i<moships.size(); ++i){
+  for( int i=0; i<players.size(); ++i){
     sf::Color c = sf::Color::Green; // TODO define per player and/or make a better moship
     sf::Shape moship;
-    moship.AddPoint(moship[i].get_x()+2, moship[i].get_y(), c, c);
-    moship.AddPoint(moship[i].get_x()-2, moship[i].get_y()-2, c, c);
-    moship.AddPoint(moship[i].get_x()-2, moship[i].get_y()+2, c, c);
+    Mothership *ms = players[i].get_moship();
+    moship.AddPoint(ms->get_x()+2, ms->get_y(), c, c);
+    moship.AddPoint(ms->get_x()-2, ms->get_y()-2, c, c);
+    moship.AddPoint(ms->get_x()-2, ms->get_y()+2, c, c);
     moship.EnableFill(false);
     moship.Rotate(moship[i].get_rotation());
     window.Draw(moship);
-    // TODO draw moships here
   }
 
   window.Display();
