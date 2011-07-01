@@ -6,17 +6,16 @@ Client::Client(const char *server_ip_address, unsigned short server_port)
 {
 }
 
-Client::get_error()
+std::string Client::get_error()
 {
   return error;
 }
 
-Client::init()
+bool Client::init()
 {
   if (client.Connect(server_ip, port) != sf::Socket::Done)
   {
-    std::cout << "Could not connect to server at " << server_ip << ":" << port << std::endl;
-    error = "Could not connect to server at " << server_ip << ":" << port;
+    error = "Could not connect to server.";
     return false;
   }
 }

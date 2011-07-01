@@ -1,3 +1,5 @@
+#include <iostream>
+#include <string>
 #include <SFML/Network.hpp>
 
 class Client
@@ -9,8 +11,8 @@ class Client
   sf::IpAddress server_ip;
  
   public:
-    Client(const char *server_ip_address, const unsigned short &server_port);
-
+    Client(const char *server_ip_address, unsigned short server_port);
+    
     /**
      * @brief get error message
      */
