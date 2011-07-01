@@ -12,9 +12,14 @@
 #include "game/player.hpp"
 #include "interfacing/interfacing.hpp"
 
+// if set to 1, will include code that will break the current make but is needed in the final version
+#define COMPILE 0
 
 int main(){
-  //make a game, player and then feed them into Interface, then go!
-  // TODO
-  // also need to get networking involved somehow
+#if COMPILE
+  // this is used so I can show the expected interface without loosing the ability to make
+  GameClient ga; // need to give a server ip and be able to get a player out of this. ga also needs to call draw
+  Interfacing(ga, ga.get_player()) in;
+  in.main();
+#endif
 }
