@@ -1,4 +1,15 @@
+#include <vector>
+
+class Planet;
+class Player;
+class Fleet;
+
 class ClientGame {
+    std::vector<Planet *> planets;
+
+    std::vector<Player *> players;
+
+    std::vector<Fleet *> fleets;
 public:
     ClientGame();
     
