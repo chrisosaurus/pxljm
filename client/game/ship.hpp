@@ -1,6 +1,8 @@
 
 #include <iostream>
 
+#define LIGHTSPEED 9001
+
 class Ship {
 public:
 

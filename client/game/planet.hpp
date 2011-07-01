@@ -2,14 +2,20 @@
 class Fleet;
 
 class Planet {
+private:
+    const int x;
+    const int y;
+    const int radius;
 public:
-    Planet();
+    Planet(int X, int Y, int Radius);
     
     ~Planet();
     
     int get_x() const;
 
     int get_y() const;
+    
+    int get_radius() const;
 
     int get_ship_count() const;
 
@@ -19,7 +25,7 @@ public:
      */
     void remove_ships(int amount);
 
-    virtual Fleet *launch_fleet(Planet &dest);
+    virtual Fleet *launch_fleet();
     
     virtual void logic();
 };
