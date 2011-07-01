@@ -3,16 +3,17 @@
 class Server
 {
 
-  int max_clients;
   int clients;
   std::string error;
   unsigned short port;
 
   sf::TcpListener listener;
+  sf::SocketSelector selector;
+  std::list<sf::TcpSocket*> clients;
 
   public:
 
-    Server(unsigned short listening_port, int maximum_clients);
+    Server(unsigned short listening_port, int num_clients);
     
     /**
      *
