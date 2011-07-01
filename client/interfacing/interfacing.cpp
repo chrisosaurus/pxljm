@@ -1,10 +1,11 @@
 #include <SFML/Graphics.hpp>
-#include <../ship.hpp>
-#include <../fleet.hpp>
-#include <../game/planet.hpp>
-#include <../game/mothership.hpp>
-#include <../game/player.hpp>
-#include <interfacing.hpp>
+#include "../game/ship.hpp"
+#include "../game/fleet.hpp"
+#include "../game/planet.hpp"
+#include "../game/game.hpp"
+#include "../game/mothership.hpp"
+#include "../game/player.hpp"
+#include "interfacing.hpp"
 
 #define pi 3.14
 
@@ -17,15 +18,16 @@ void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Pla
   window.Clear();
 
   // draw ships first
-  for( int i=0; i<ships.size(); ++i){
+  for( int i=0; i<fleets.size(); ++i){
     sf::Shape ship;
     // TODO adjust colour based on player
     sf::Color c = sf::Color::Red;
-    ship.AddPoint(ships[i].screenX+1, ships[i].screenY,   c, c);
-    ship.AddPoint(ships[i].screenX-1, ships[i].screenY-1, c, c);
-    ship.AddPoint(ships[i].screenX-1, ships[i].screenY+1, c, c);
+    Fleet &fleet = fleets[i]; // TODO go through ships below
+    ship.AddPoint(fleets[i].screenX+1, fleets[i].screenY,   c, c);
+    ship.AddPoint(fleets[i].screenX-1, fleets[i].screenY-1, c, c);
+    ship.AddPoint(fleets[i].screenX-1, fleets[i].screenY+1, c, c);
     ship.EnableFill(false);
-    ship.Rotate(ships[i].rot * PI/180); // oh god, it burns! also: PI is exactly 3
+    ship.Rotate(fleets[i].rot * PI/180); // oh god, it burns! also: PI is exactly 3
     window.Draw(ship);
   }
 
