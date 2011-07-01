@@ -7,7 +7,7 @@ class BarrierPlanet : public Planet {
 
     ~BarrierPlanet();
 
-    void remove_ships(int amount);
+    void ships_arrival(Player *owner, int amount);
 
     Fleet *launch_fleet(Planet &dest);
 };

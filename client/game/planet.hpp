@@ -9,6 +9,10 @@ private:
     const int radius;
 
     const int id;
+
+    int ships = 0;
+
+    Player *owner = 0;
     
 public:
     Planet(int vx, int vy, int vradius, int vid);
@@ -24,12 +28,8 @@ public:
     int get_ship_count() const;
 
     int get_id() const;
-
-    /**
-     * Removes ships (for instance, when this Planet is being attacked by a fleet)
-     * @param amount The amount of attacking ships to be processed at this instant
-     */
-    virtual void remove_ships(int amount);
+    
+    virtual void ships_arrival(Player *player, int amount);
 
     virtual Fleet *launch_fleet(Planet &dest);
     

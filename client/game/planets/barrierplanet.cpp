@@ -5,7 +5,7 @@ BarrierPlanet::BarrierPlanet(int vx, int vy, int vradius, int vid)
 
 BarrierPlanet::~BarrierPlanet() {}
 
-void BarrierPlanet::remove_ships(int amount) {
+void BarrierPlanet::ships_arrival(Player *owner, int amount) {
     /* FIXME TODO */
 }
 
