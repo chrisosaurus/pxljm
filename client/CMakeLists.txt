@@ -8,7 +8,7 @@ SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
 SET(SRCS
   ./networking/client.hpp
-  ./networking/main_client.cpp
+  ./main.cpp
   ./networking/client.cpp
   ./interfacing/interfacing.hpp
   ./interfacing/interfacing.cpp
