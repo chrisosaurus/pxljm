@@ -4,7 +4,7 @@ PROJECT(client)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
-FIND_PACKAGE(SFML REQUIRED)
+#FIND_PACKAGE(SFML REQUIRED)
 
 SET(SRCS
   ./networking/client.hpp
@@ -27,12 +27,16 @@ SET(SRCS
 
 SET(PROGRAMS client)
 
-INCLUDE_DIRECTORIES(${SFML_INCLUDE_DIR})
+#INCLUDE_DIRECTORIES(${SFML_INCLUDE_DIR})
 
 ADD_EXECUTABLE(client ${SRCS})
 
 TARGET_LINK_LIBRARIES(client
-  ${SFML_LIBRARY}
+  #${SFML_LIBRARY}
+  -lsfml-graphics
+  -lsfml-window
+  -lsfml-network
+  -lsfml-system
   )
 
 INSTALL(TARGETS client RUNTIME DESTINATION .)
