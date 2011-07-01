@@ -1,3 +1,6 @@
+#include <string>
+#include <list>
+#include <iostream>
 #include <SFML/Network.hpp>
 
 class Server
@@ -8,10 +11,10 @@ class Server
 
   sf::TcpListener listener;
   sf::SocketSelector selector;
-  std::list<sf::TcpSocket*> clients;
+  std::list<sf::TcpSocket*> client_list;
 
   public:
-    Server(unsigned short &listening_port, int &num_clients);
+    Server(unsigned short listening_port, int num_clients);
     
     /**
      *
