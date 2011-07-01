@@ -1,6 +1,18 @@
+class Client;
+
 class Interfacing{
+    sf::RenderWindow window;
+    Client &client;
   public:
-    Interfacing(???);
-    void draw(const std::vector<Planet> &planets, const std::vector<Mothership> &motherships, const std::vector<Ship> &ships);
-    void draw_string(const std::string &val);
+    // this is a constructor, herpa derpety derp
+    Interfacing(Client &cl);
+
+    // draw everything (planets, moships, fleets)
+    void draw(const std::vector<Planet> &planets, const std::vector<Mothership> &motherships, const std::vector<Fleet> &fleets);
+
+    // we won't be using this much, maybe it will be private
+    void draw_string(const std::string &val, int x, int y);
+
+    // main loop
+    void main();
 };
