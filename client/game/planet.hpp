@@ -1,6 +1,7 @@
 #ifndef PLANET_H
 #define PLANET_H
 class Fleet;
+class Player;
 
 class Planet {
 private:
@@ -10,9 +11,9 @@ private:
 
     const int id;
 
-    int ships = 0;
+    int ships;
 
-    Player *owner = 0;
+    Player *owner;
     
 public:
     Planet(int vx, int vy, int vradius, int vid);

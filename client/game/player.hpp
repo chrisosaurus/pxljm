@@ -1,6 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-// requires a Mothership include
+class Mothership;
 class Player{
   int UID;
   Mothership *moship;

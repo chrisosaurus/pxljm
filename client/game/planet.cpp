@@ -1,6 +1,9 @@
+#include "fleet.hpp"
+#include "player.hpp"
+
 #include "planet.hpp"
 
-Planet::Planet(int vx, int vy, int vradius, int vid) : x(vx), y(vx), radius(vradius), id(vid) { }
+Planet::Planet(int vx, int vy, int vradius, int vid) : x(vx), y(vx), radius(vradius), id(vid), ships(0), owner(0) { }
 
 Planet::~Planet() {}
 
@@ -29,7 +32,7 @@ void Planet::ships_arrival(Player *player, int amount) {
 
 Fleet *Planet::launch_fleet(Planet &dest) {
     /* Always send half the available amount. */
-    Fleet *f = new Fleet(ships >> 1, *this, dest, 0 /* *** FIXME FIXME *** */, owner);
+    Fleet *f = new Fleet(ships >> 1, *this, dest, 0 /* *** FIXME FIXME *** */, *owner);
     ships -= ships >> 1;
     return f;
 }
