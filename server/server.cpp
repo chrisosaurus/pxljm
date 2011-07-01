@@ -11,7 +11,7 @@ std::string Server::get_error()
   return error;
 }
 
-bool Server::init()
+bool Server::run()
 {
   std::cout << "Trying to listen on port " << port << std::endl;
   if (listener.Listen(port) != sf::Socket::Done)
@@ -37,10 +37,19 @@ bool Server::init()
           client_list.push_back(client);
           selector.Add(*client);
           ++clients_so_far;
-          std::cout << clients_so_far << " have connected so far" << std::endl;
+          std::cout << "Client " << clients_so_far << " connected from " << client->GetRemoteAddress() << std::endl;
         }
       }
     }
   }
   std::cout << "All clients have connected. Starting game..." << std::endl;
+  for (int i = 0; i < client_list.size(); ++i)
+  {
+    client_list[i]->Send("Ready", 6);
+  }
+
+  // Main loop yay
+  while (true)
+  {
+  }
 }

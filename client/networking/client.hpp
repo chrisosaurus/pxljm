@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 #include "../game/fleet.hpp"
 #include <SFML/Network.hpp>
 

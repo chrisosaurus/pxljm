@@ -11,7 +11,7 @@ class Server
 
   sf::TcpListener listener;
   sf::SocketSelector selector;
-  std::list<sf::TcpSocket*> client_list;
+  std::vector<sf::TcpSocket*> client_list;
 
   public:
     Server(unsigned short listening_port, int num_clients);
@@ -25,7 +25,7 @@ class Server
      * @brief initialise networking stuff
      * @return Returns true if everything went well
      */
-    bool init();
+    bool run();
 
     /**
      * @brief receive action over the interwebs or network tubes
