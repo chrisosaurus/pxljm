@@ -1,3 +1,7 @@
+#ifndef INTERFACING
+#define INTERFACING
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 class Client;
 
 class Interfacing{
@@ -18,3 +22,5 @@ class Interfacing{
     // main loop
     void main();
 };
+
+#endif

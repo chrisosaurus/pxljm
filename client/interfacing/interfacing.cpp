@@ -1,5 +1,3 @@
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
 #include "../game/ship.hpp"
 #include "../game/fleet.hpp"
 #include "../game/planet.hpp"

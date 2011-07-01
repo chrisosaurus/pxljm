@@ -1,4 +1,5 @@
-
+#ifndef SHIP
+#define SHIP
 #include <iostream>
 
 #define LIGHTSPEED 9001
@@ -18,4 +19,4 @@ public:
   Ship(int offsetX, int offsetY);
 };
 
-
+#endif

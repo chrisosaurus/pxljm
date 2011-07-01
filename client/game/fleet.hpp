@@ -1,3 +1,5 @@
+#ifndef FLEET
+#define FLEET
 #include <vector>
 
 class Planet;
@@ -35,4 +37,4 @@ public:
   int update(int viewerX, int viewerY, int gameTime, int frameTime);
 };
 
-
+#endif

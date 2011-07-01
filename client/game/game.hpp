@@ -1,3 +1,5 @@
+#ifndef CLIENTGAME
+#define CLIENTGAME
 #include <vector>
 
 class Planet;
@@ -31,3 +33,5 @@ public:
      */
     Planet *find_nearest_planet(int x, int y, int limit = 0);
 };
+
+#endif

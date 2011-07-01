@@ -1,4 +1,5 @@
-
+#ifndef PLANET
+#define PLANET
 class Fleet;
 
 class Planet {
@@ -34,3 +35,5 @@ public:
     
     virtual void logic();
 };
+
+#endif

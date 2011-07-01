@@ -1,3 +1,5 @@
+#ifndef PLAYER
+#define PLAYER
 // requires a Mothership include
 class Player{
   int UID;
@@ -7,3 +9,4 @@ class Player{
     int get_uid() { return UID; }
     Mothership* get_moship() { return moship; }
 };
+#endif

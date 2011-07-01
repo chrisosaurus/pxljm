@@ -1,3 +1,5 @@
+#ifndef MOTHERSHIP
+#define MOTHERSHIP
 class Mothership {
     const int x;
     const int y;
@@ -14,4 +16,5 @@ public:
 
     int get_rotation() const { return rotation; }
 };
-    
+
+#endif
