@@ -2,10 +2,10 @@ class Client;
 
 class Interfacing{
     sf::RenderWindow window;
-    Client &client;
+    ClientGame game;
   public:
     // this is a constructor, herpa derpety derp
-    Interfacing(Client &cl);
+    Interfacing(ClientGame ga);
 
     // draw everything (planets, moships, fleets)
     void draw(const std::vector<Planet> &planets, const std::vector<Mothership> &motherships, const std::vector<Fleet> &fleets);

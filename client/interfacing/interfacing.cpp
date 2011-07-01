@@ -3,11 +3,13 @@
 
 #define pi 3.14
 
-Interfacing::Interfacing(Client &cl)
-  : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close), client(cl) {
+Interfacing::Interfacing(Client cl)
+  : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close), game(ga) {
 }
 
 void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Mothership> &motherships, const std::vector<Fleet> &fleets){
+  window.Clear();
+
   // draw ships first
   for( int i=0; i<ships.size(); ++i){
     sf::Shape ship;
@@ -17,12 +19,14 @@ void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Mot
     ship.AddPoint(ships[i].screenX-1, ships[i].screenY-1, c, c);
     ship.AddPoint(ships[i].screenX-1, ships[i].screenY+1, c, c);
     ship.EnableFill(false);
-    ship.Rotate(ships[i].rot * PI/180);//TODO
+    ship.Rotate(ships[i].rot * PI/180); // oh god, it burns! also: PI is exactly 3
+    window.Draw(ship);
   }
 
   for( int i=0; i<planets.size(); ++i){
     sf::Color c = sf::Color::Blue; // TODO define per player
     sf::Shape planet = sf::Shape::Circle(planets[i].get_x(), planets[i].get_y(), planets[i].get_raius(), c, 0, c); // TODO handle highlighting later
+    window.Draw(planet);
     // TODO draw planets here
   }
 
@@ -34,8 +38,11 @@ void Interfacing::draw(const std::vector<Planet> &planets, const std::vector<Mot
     moship.AddPoint(moship[i].get_x()-2, moship[i].get_y()+2, c, c);
     moship.EnableFill(false);
     moship.Rotate(moship[i].get_rotation());
+    window.Draw(moship);
     // TODO draw moships here
   }
+
+  window.Display();
 }
 
 void Interfacing::draw_string(const std::string &val, int x, int y){
