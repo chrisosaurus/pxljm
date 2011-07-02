@@ -69,33 +69,32 @@ int NetworkingClient::join()
 bool NetworkingClient::receive_fleet()
 {
   sf::Packet received_fleet;
-  int from_id, to_id, qty, timestamp;
+  int from_id, to_id, timestamp;
 
   if (client.Receive != sf::Socket::Done)
   {
     return false;
   }
 
-  if (!(received_fleet >> from_id >> to_id >> qty >> timestamp))
+  if (!(received_fleet >> from_id >> to_id >> timestamp))
   {
     std::cout << "Error extracting data from Packet" << std::endl;
     error = "Error extracting data from Packet";
     throw error;
   }
-  game->launch_fleet(from_id, to_id, qty, timestamp);
+  game->launch_fleet(from_id, to_id, timestamp);
 }
 
 bool NetworkingClient::send_fleet(Fleet *fleet)
 {
   sf::Packet fleet_to_send;
-  int from_id, to_id, qty, timestamp;
+  int from_id, to_id, timestamp;
   
   from_id = fleet->orig.get_id();
   to_id = fleet->dest.get_id();
-  qty = fleet->ships.size();
   timestamp = fleet->startTime;
 
-  if (!(fleet_to_send << from_id << to_id << qty << timestamp))
+  if (!(fleet_to_send << from_id << to_id << timestamp))
   {
     std::cout << "Error putting fleet data into Packet." << std::endl;
     error = "Error putting fleet data into Packet";
@@ -104,39 +103,3 @@ bool NetworkingClient::send_fleet(Fleet *fleet)
   client.Send(fleet_to_send);
   return true;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
