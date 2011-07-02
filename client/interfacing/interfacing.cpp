@@ -66,7 +66,7 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
 
   std::cout << "drawing planets" << std::endl;
   for( int i=0; i<planets.size(); ++i){
-    Planet * p = planets[i]->get_player();
+    const Player * p = planets[i]->get_player();
     sf::Color c = colour_from_uid( p ? p->get_uid() : 0 ); // defaults to grey, for unowned.
     sf::Shape planet = sf::Shape::Circle(planets[i]->get_x(), planets[i]->get_y(), planets[i]->get_radius(), c, 0, c);
     window.Draw(planet);
