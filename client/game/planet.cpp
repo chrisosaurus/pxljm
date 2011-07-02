@@ -52,3 +52,7 @@ Fleet *Planet::launch_fleet(Planet &dest, int launch_time) {
     set_ship_count(launch_time, ships - ships >> 1);
     return f;
 }
+
+void Planet::draw(sf::RenderWindow &window, const sf::Color &c) const {
+    window.Draw(sf::Shape::Circle(x, y, get_radius(), c, 0, c));
+}

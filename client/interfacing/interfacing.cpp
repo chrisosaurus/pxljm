@@ -41,7 +41,7 @@ Interfacing::Interfacing(ClientGame& ga, Player *p)
       window.SetFramerateLimit(60);
 }
 
-void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &players, std::vector<Fleet*> &fleets){
+void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleets){
   window.Clear();
 
   unsigned int frametime = window.GetFrameTime();
@@ -64,23 +64,9 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
     }
   }
 
-  for( int i=0; i<planets.size(); ++i){
+  for( int i=0; i<planets.size(); ++i) {
     const Player * p = planets[i]->get_player();
-    sf::Color c = colour_from_uid( p ? p->get_uid() : -1 ); // defaults to grey, for unowned.
-    sf::Shape planet = sf::Shape::Circle(planets[i]->get_x(), planets[i]->get_y(), planets[i]->get_radius(), c, 0, c);
-    window.Draw(planet);
-  }
-
-  for( int i=0; i<players.size(); ++i){
-    sf::Color c = colour_from_uid(players[i]->get_uid());
-    sf::Shape moship;
-    Mothership *ms = players[i]->get_moship();
-    moship.AddPoint(ms->get_x()+20, ms->get_y(), c, c);
-    moship.AddPoint(ms->get_x()-20, ms->get_y()-20, c, c);
-    moship.AddPoint(ms->get_x()-20, ms->get_y()+20, c, c);
-    moship.EnableFill(true);
-    moship.Rotate(ms->get_rotation());
-    window.Draw(moship);
+    planets[i]->draw(window, colour_from_uid(p ? p->get_uid() : -1));
   }
 
   window.Display();

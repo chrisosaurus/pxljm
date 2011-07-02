@@ -1,12 +1,15 @@
 #ifndef PLANET_H
 #define PLANET_H
+
+#include <SFML/Graphics.hpp>
+
 class Fleet;
 class Player;
 
 class Planet {
-private:
-    const int x;
-    const int y;
+protected:
+    int x;
+    int y;
     const int capacity;
 
     const int id;
@@ -27,7 +30,7 @@ public:
 
     int get_y() const;
     
-    int get_radius() const;
+    virtual int get_radius() const;
 
     virtual int get_ship_count(int current_time) const;
 
@@ -38,6 +41,8 @@ public:
     virtual void ships_arrival(Player *player, int amount, int current_time);
 
     virtual Fleet *launch_fleet(Planet &dest, int launch_time);
+
+    virtual void draw(sf::RenderWindow &window, const sf::Color &c) const;
 };
 
 #endif
