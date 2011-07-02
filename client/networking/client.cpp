@@ -18,9 +18,17 @@ void NetworkingClient::join()
 {
   if (client.Connect(server_ip, port) != sf::Socket::Done)
   {
-    std::cout << "Could not connect to server :-(" << std::endl;
-    error = "Could not connect to server.";
-    throw error;
+    ++port;
+    if (client.Connect(server_ip, port) != sf::Socket::Done)
+    {
+      ++port;
+      if (client.Connect(server_ip, port) != sf::Socket::Done)
+      {
+        std::cout << "Could not connect to server :-(" << std::endl;
+        error = "Could not connect to server.";
+        throw error;
+      }
+    }
   }
   std::cout << "Waiting for ready message" << std::endl;
   sf::Packet ready_message;
