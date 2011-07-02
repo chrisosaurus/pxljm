@@ -1,6 +1,8 @@
 #include "client.hpp"
 #include "../game/game.hpp"
 #include "../game/planet.hpp"
+#include "../game/player.hpp"
+#include "../game/mothership.hpp"
 
 NetworkingClient::NetworkingClient(const char *server_ip_address, unsigned short server_port)
   : server_ip(server_ip_address),
@@ -43,6 +45,7 @@ int NetworkingClient::join()
   ready_message << message;
   client.Send(ready_message);
 
+  // Receive all planets
   bool planet_end = false;
   int x, y, radius, id = 0;
   sf::Packet planet;
@@ -67,33 +70,69 @@ int NetworkingClient::join()
     }
   }
 
+  // Receive all players/moships
+  sf::Packet player;
+  bool player_end = false;
+  int uid;
+  while (!player_end)
+  {
+    client.Receive(player);
+    if (player >> x >> y >> uid)
+    {
+      if (uid < 0)
+      {
+        // It's a player end packet, stop receiving players
+        player_end = true;
+      }
+      else
+      {
+        // it's a regular player, add it
+        std::cout << "Adding mothership at " << x << ", " << y << ", uid:" << uid << std::endl;
+        Player *new_player = new Player(uid);
+        new_player->set_moship(new Mothership(x, y));
+        game->add_player(new_player);
+      }
+    }
+  }
+
   client.SetBlocking(false);
   return player_id;
 }
 
-bool NetworkingClient::receive_fleet()
+bool NetworkingClient::receive_packet()
 {
   sf::Packet received_fleet;
-  int from_id, to_id, timestamp;
+  int packet_id;
 
   if (client.Receive(received_fleet) != sf::Socket::Done)
   {
     return false;
   }
+  received_fleet >> packet_id;
+  if (packet_id == 1)
+  {
+    //TODO moship
+  }
+  else if(packet_id == 2)
+  {
+    // fleet
+    std::cout << "Fleet Packet" << std::endl;
+    int from_id, to_id, timestamp;
 
-  if (!(received_fleet >> from_id >> to_id >> timestamp))
-  {
-    std::cout << "Error extracting data from Packet" << std::endl;
-    error = "Error extracting data from Packet";
-    throw error;
+    if (!(received_fleet >> from_id >> to_id >> timestamp))
+    {
+      std::cout << "Error extracting data from Packet" << std::endl;
+      error = "Error extracting data from Packet";
+      throw error;
+    }
+    if (timestamp < 0)
+    {
+      std::cout << "Received quit command" << std::endl;
+      client.Disconnect();
+      return true;
+    }
+    game->launch_fleet(from_id, to_id, timestamp);
   }
-  if (timestamp < 0)
-  {
-    std::cout << "Received quit command" << std::endl;
-    client.Disconnect();
-    return true;
-  }
-  game->launch_fleet(from_id, to_id, timestamp);
 }
 
 bool NetworkingClient::send_fleet(Fleet *fleet)

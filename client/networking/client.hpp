@@ -41,7 +41,7 @@ class NetworkingClient
     /**
      *
      */
-    bool receive_fleet();
+    bool receive_packet();
     
     /**
      * @brief send new fleet creation to server
