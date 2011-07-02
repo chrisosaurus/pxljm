@@ -68,7 +68,7 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   
   float p = (float)(t-startTime)/(float)(endTime-startTime);  // p: percent there
   if (p<0.f) return -1;
-  if (p>1.f) return +1;
+  if (p>1.f) return endTime;
   
   for (int i=0; i<ships.size(); ++i) {
     ships[i]->addAcceleration(repellFromShips(ships[i], i), frameTime);
