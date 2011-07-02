@@ -49,9 +49,11 @@ bool Server::run()
   ready_message << message;
   for (int i = 0; i < client_list.size(); ++i)
   {
+    std::cout << client_list.size() << ", " << i << std::endl;
+    ready_message << message << i;
     client_list[i]->Send(ready_message);
+    ready_message.Clear();
   }
-  ready_message.Clear();
 
   // Wait for ready responses
   int ready = 0;
@@ -67,7 +69,7 @@ bool Server::run()
           client_sending->Receive(ready_message);
           if ((ready_message >> message) && (message == "Ready"))
           {
-            std::cout << "Client " << i << " is ready" << std::endl;
+            std::cout << "Client " << i + 1 << " is ready" << std::endl;
             ++ready;
           }
         }
