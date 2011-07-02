@@ -23,11 +23,6 @@ class Client
      * @param server_port the port that the server is listening on.
      */
     Client(const char *server_ip_address, unsigned short server_port);
-    
-    /**
-     * @brief get error message
-     */
-    std::string get_error();
 
     /**
      * @brief initialise and do everything
