@@ -37,7 +37,7 @@ Interfacing::Interfacing(ClientGame& ga, Player *p)
       me = p;
 }
 
-void Interfacing::draw(std::vector<Planet> &planets, std::vector<Player> &players, std::vector<Fleet> &fleets){
+void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &players, std::vector<Fleet*> &fleets){
   window.Clear();
 
   unsigned int frametime = window.GetFrameTime();
@@ -46,7 +46,7 @@ void Interfacing::draw(std::vector<Planet> &planets, std::vector<Player> &player
   // draw ships first
   for( int i=0; i<fleets.size(); ++i){
     sf::Shape ship;
-    Fleet &fleet = fleets[i];
+    Fleet &fleet = *fleets[i];
     sf::Color c = colour_from_uid(fleet.owner.get_uid());
     fleet.update(me->get_moship()->get_x(), me->get_moship()->get_y(), gametime, frametime);
     for( int j=0; j<fleet.ships.size(); ++j){
@@ -61,15 +61,15 @@ void Interfacing::draw(std::vector<Planet> &planets, std::vector<Player> &player
   }
 
   for( int i=0; i<planets.size(); ++i){
-    sf::Color c = colour_from_uid(planets[i].get_player()->get_uid()); // defaults to grey, for unowned.
-    sf::Shape planet = sf::Shape::Circle(planets[i].get_x(), planets[i].get_y(), planets[i].get_radius(), c, 0, c);
+    sf::Color c = colour_from_uid(planets[i]->get_player()->get_uid()); // defaults to grey, for unowned.
+    sf::Shape planet = sf::Shape::Circle(planets[i]->get_x(), planets[i]->get_y(), planets[i]->get_radius(), c, 0, c);
     window.Draw(planet);
   }
 
   for( int i=0; i<players.size(); ++i){
-    sf::Color c = colour_from_uid(players[i].get_uid());
+    sf::Color c = colour_from_uid(players[i]->get_uid());
     sf::Shape moship;
-    Mothership *ms = players[i].get_moship();
+    Mothership *ms = players[i]->get_moship();
     moship.AddPoint(ms->get_x()+2, ms->get_y(), c, c);
     moship.AddPoint(ms->get_x()-2, ms->get_y()-2, c, c);
     moship.AddPoint(ms->get_x()-2, ms->get_y()+2, c, c);
@@ -97,6 +97,7 @@ void Interfacing::main(){
 
   // go go go !
   while(window.IsOpened()){
+    sf::Sleep(10);
     // check for closing events
     while(window.PollEvent(event))
       if(event.Type == sf::Event::Closed)
