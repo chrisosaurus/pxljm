@@ -11,6 +11,8 @@
 
 Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, Player &sender)
  : ships(quantity), orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(50), screenX(origin.get_x()), screenY(origin.get_y()) {
+ 
+  std::cout << "Fleet starting construcction. Quantity: " << quantity << " Owner: player " << owner.get_uid() << std::endl;
 
   endTime = startTime + hypot(dest.get_x()-orig.get_x(), dest.get_y()-orig.get_y()) / FLEET_SPEED;  // dt = dx/v
 
