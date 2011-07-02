@@ -130,8 +130,10 @@ void Interfacing::main(){
           // send event, or ignore
           if(p2){
             std::cout << "found a second planet under the recent click" << std::endl;
-            if( p->get_player() != me )
+            if( p->get_player() != me ){
+              ly = -1, lx = -1;
               continue;
+            }
             game.launch_fleet(*p, *p2, clock.GetElapsedTime());
             // give dest planet a green border
             sf::Shape s = sf::Shape::Circle(p2->get_x(), p2->get_y(), p2->get_radius(), sf::Color::Black, 2, sf::Color::Green);
