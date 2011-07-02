@@ -63,7 +63,7 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
 
   for( int i=0; i<planets.size(); ++i){
     const Player * p = planets[i]->get_player();
-    sf::Color c = colour_from_uid( p ? p->get_uid() : 0 ); // defaults to grey, for unowned.
+    sf::Color c = colour_from_uid( p ? p->get_uid() : -1 ); // defaults to grey, for unowned.
     sf::Shape planet = sf::Shape::Circle(planets[i]->get_x(), planets[i]->get_y(), planets[i]->get_radius(), c, 0, c);
     window.Draw(planet);
   }
@@ -122,6 +122,8 @@ void Interfacing::main(){
       if( ly > 0){ // omg, DO SOMETHING
         Planet *p = game.find_nearest_planet(lx, ly, 1);
         if(p){
+          if( p->get_player() != me )
+            continue; // skip this
           std::cout << "found a planet under the last click" << std::endl;
           // planet in the from, is there a plen in the too
           Planet *p2 = game.find_nearest_planet(mx, my, 1);
@@ -154,6 +156,8 @@ void Interfacing::main(){
         ly = my;
         Planet *p = game.find_nearest_planet(lx,ly);
         if(p){ // highlight planet with red outline
+            if( p->get_player() != me )
+              continue;
             sf::Shape s = sf::Shape::Circle(p->get_x(), p->get_y(), p->get_radius(), sf::Color::Black, 2, sf::Color::Red);
             s.EnableFill(false);
             window.Draw(s);
