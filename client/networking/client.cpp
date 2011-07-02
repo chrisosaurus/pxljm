@@ -40,7 +40,7 @@ int NetworkingClient::join()
   client.Send(ready_message);
 
   bool planet_end = false;
-  int x, y, radius, id;
+  int x, y, radius, id = 0;
   sf::Packet planet;
 
   while(!planet_end)
