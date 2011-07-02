@@ -25,6 +25,8 @@ void ClientGame::set_game(){
 
 void ClientGame::launch_fleet(Planet &src, Planet &dest, int timestamp) {
     Fleet *f = src.launch_fleet(dest, timestamp);
+    if (!src.get_player())
+        return;
     if (&f->owner == src.get_player())
         net->send_fleet(f);
     fleets.push_back(f);
