@@ -30,11 +30,11 @@ void ClientGame::remove_fleet(Fleet *f) {
     /* This should really use a set */
     std::vector<Fleet *>::iterator it = std::find(fleets.begin(), fleets.end(), f);
     if (it != fleets.end())
-        fleets.remove(f);
+        fleets.erase(it);
 }
 
 void ClientGame::launch_fleet(int pid1, int pid2){
-  launch_fleet( planet_from_id(pid1), planet_from_id(pid2) );
+  launch_fleet(*planet_from_id(pid1), *planet_from_id(pid2));
 }
 
 struct pid : std::binary_function <Planet *, int, bool> {

@@ -37,7 +37,7 @@ int Client::join()
   return player_id;
 }
 
-bool send_fleet(Fleet *fleet_to_send)
+bool Client::send_fleet(Fleet *fleet_to_send)
 {
   // TODO: send the fleet to server
 }
