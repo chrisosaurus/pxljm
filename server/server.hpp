@@ -16,7 +16,8 @@ class Server
 
   public:
     Server(unsigned short listening_port, int num_clients);
-    
+   
+    ~Server();
     /**
      *
      */
@@ -40,6 +41,6 @@ class Server
     */
     bool send_action();
 
-    void parse_file(std::string fname);
-    void send_planet(int x, int y, int rad);
+    void parse_file(const char *fname);
+    void planet(int x, int y, int rad);
 };

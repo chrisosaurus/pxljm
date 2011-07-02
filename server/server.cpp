@@ -2,11 +2,18 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 
 Server::Server(unsigned short listening_port, int num_clients)
   : port(listening_port),
   clients(num_clients)
 {
+}
+
+Server::~Server()
+{
+  listener.Close();
+  selector.Clear();
 }
 
 std::string Server::get_error()
@@ -81,7 +88,9 @@ bool Server::run()
     }
   }
 
-  // TODO: Send planets
+
+  // Send planets
+  parse_file("test.map");
 
 
   // Main loop yay
@@ -109,10 +118,24 @@ bool Server::run()
   }
 }
 
-void Server::pares_file(std::string fname = "test.map"){
+void Server::parse_file(const char *fname = "test.map"){
   int x,y,rad;
-  ifstream input(fname);
+  std::ifstream input(fname);
   while( input >> x >> y >> rad )
+  {
+    std::cout << "Sending " << x << y << rad << std::endl;
     planet(x,y,rad);
+  }
   planet(-1,-1,-1);
+}
+
+void Server::planet(int x, int y, int rad)
+{
+  sf::Packet planet_to_send;
+  for (int i = 0; i < client_list.size(); ++i)
+  {
+    planet_to_send << x << y << rad;
+    client_list[i]->Send(planet_to_send);
+    planet_to_send.Clear();
+  }
 }
