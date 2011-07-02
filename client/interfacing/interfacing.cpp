@@ -8,9 +8,6 @@
 
 #define PI 3.14
 
-// can a player move ships from a planet he doenst control? 0 for yes, 1 for no
-#define VERIFY 1
-
 sf::Color Interfacing::colour_from_uid(int uid){
   switch(uid){
     case 0:
@@ -119,16 +116,16 @@ void Interfacing::main(){
           Planet *p2 = game.find_nearest_planet(mx, my, 1);
           // send event, or ignore
           if(p2){
-            //std::cout << "checking if I own the from " << p << " thats p, me is " << me << std::endl;
-#if VERIFY
-            if( p->get_player() && p->get_player()->get_uid() != me->get_uid() ){
-              //std::cout << "my uid " << me->get_uid() << ", and the planets is " << p->get_player()->get_uid() << std::endl;
+            
+            //std::cout << "checking if I own the from " << p << " thats p, me is " << me << "and player is" << p->get_player() << std::endl;
+            if( !p->get_player() || p->get_player()->get_uid() != me->get_uid() ){
               ly = -1, lx = -1;
               continue;
             }
-#endif
+            
             //std::cout << "I should be launcing a fleet" << std::endl;
             game.launch_fleet(*p, *p2, clock.GetElapsedTime());
+            //std::cout << "launched!" << std::endl;
             // give dest planet a green border
             sf::Shape s = sf::Shape::Circle(p2->get_x(), p2->get_y(), p2->get_radius(), sf::Color::Black, 2, sf::Color::Green);
             s.EnableFill(false);
@@ -152,7 +149,7 @@ void Interfacing::main(){
         lx = mx;
         ly = my;
         Planet *p = game.find_nearest_planet(lx,ly);
-        std::cout << "nothing last frame, recording" << std::endl;
+        //std::cout << "nothing last frame, recording" << std::endl;
         if(p){ // highlight planet with red outline
             //if( p->get_player() != me )
             //  continue;
