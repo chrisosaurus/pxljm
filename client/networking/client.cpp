@@ -1,12 +1,15 @@
 #include "client.hpp"
+#include "../game/game.hpp"
+#include "../game/planet.hpp"
 
-Client::Client(const char *server_ip_address, unsigned short server_port)
+NetworkingClient::NetworkingClient(const char *server_ip_address, unsigned short server_port, ClientGame *client_game)
   : server_ip(server_ip_address),
-  port(server_port)
+  port(server_port),
+  game(client_game)
 {
 }
 
-int Client::join()
+int NetworkingClient::join()
 {
   if (client.Connect(server_ip, port) != sf::Socket::Done)
   {
@@ -34,10 +37,34 @@ int Client::join()
   message = "Ready";
   ready_message << message;
   client.Send(ready_message);
+
+  bool planet_end = false;
+  int x, y, radius, id;
+  sf::Packet planet;
+
+  while(!planet_end)
+  {
+    client.Receive(planet);
+    if (!(planet >> x >> y >> radius))
+    {
+      if (radius < 0)
+      {
+        //it's a planet end packet, stop receiving planets
+        planet_end = true;
+      }
+      else
+      {
+        //it's a regular planet, add it
+        game->add_planet(new Planet(x, y, radius, id));
+        ++id;
+      }
+    }
+  }
+
   return player_id;
 }
 
-bool Client::send_fleet(Fleet *fleet_to_send)
+bool NetworkingClient::send_fleet(Fleet *fleet_to_send)
 {
   // TODO: send the fleet to server
 }

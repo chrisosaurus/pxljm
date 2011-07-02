@@ -33,6 +33,10 @@ void ClientGame::remove_fleet(Fleet *f) {
         fleets.erase(it);
 }
 
+void ClientGame::add_planet(Planet *p) {
+    planets.push_back(p);
+}
+
 void ClientGame::launch_fleet(int pid1, int pid2){
   launch_fleet(*planet_from_id(pid1), *planet_from_id(pid2));
 }
