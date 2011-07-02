@@ -117,19 +117,16 @@ void Interfacing::main(){
     //      record a click
     // a right click means: delete the click if it was recorded last frame
     if(input.IsMouseButtonDown(sf::Mouse::Left)){
-      std::cout << "left click!" << std::endl;
       // a left click could be an action
       if( ly > 0){ // omg, DO SOMETHING
         Planet *p = game.find_nearest_planet(lx, ly, 1);
         if(p){
           //if( p->get_player() != me )
           //  continue; // skip this
-          std::cout << "found a planet under the last click" << std::endl;
           // planet in the from, is there a plen in the too
           Planet *p2 = game.find_nearest_planet(mx, my, 1);
           // send event, or ignore
           if(p2){
-            std::cout << "found a second planet under the recent click" << std::endl;
             if( p->get_player() != me ){
               ly = -1, lx = -1;
               continue;
@@ -142,7 +139,6 @@ void Interfacing::main(){
             window.Display();
           }
         } else {
-          std::cout << "no planet under my last click" << std::endl;
           // no planet in the from position, so no event can happen
           lx = mx;
           ly = my;
@@ -169,7 +165,6 @@ void Interfacing::main(){
         }
       }
     } else if(input.IsMouseButtonDown(sf::Mouse::Right)){
-      std::cout << "right click!" << std::endl;
       // a right click "empties" the stack"
       lx=-1;
       ly=-1;
