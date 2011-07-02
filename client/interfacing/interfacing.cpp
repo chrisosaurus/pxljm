@@ -45,7 +45,8 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
 
   unsigned int frametime = window.GetFrameTime();
   unsigned int gametime = clock.GetElapsedTime(); // TODO to be consistant, is this ok?
-
+  
+  std::cout << "drawing ships" << std::endl;
   // draw ships first
   for( int i=0; i<fleets.size(); ++i){
     sf::Shape ship;
@@ -63,13 +64,15 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
     }
   }
 
+  std::cout << "drawing planets" << std::endl;
   for( int i=0; i<planets.size(); ++i){
-    Planet * p = planets[i];
-    sf::Color c = colour_from_uid( p ? p->get_player()->get_uid() : 0 ); // defaults to grey, for unowned.
+    Planet * p = planets[i]->get_player();
+    sf::Color c = colour_from_uid( p ? p->get_uid() : 0 ); // defaults to grey, for unowned.
     sf::Shape planet = sf::Shape::Circle(planets[i]->get_x(), planets[i]->get_y(), planets[i]->get_radius(), c, 0, c);
     window.Draw(planet);
   }
 
+  std::cout << "drawing players" << std::endl;
   for( int i=0; i<players.size(); ++i){
     sf::Color c = colour_from_uid(players[i]->get_uid());
     sf::Shape moship;
