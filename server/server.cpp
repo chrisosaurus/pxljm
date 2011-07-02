@@ -26,8 +26,18 @@ bool Server::run()
   std::cout << "Trying to listen on port " << port << std::endl;
   if (listener.Listen(port) != sf::Socket::Done)
   {
-    error = "Error: Could not create socket.";
-    return false;
+    ++port;
+    std::cout << "Failed, trying to listen on port " << port << std::endl;
+    if (listener.Listen(port) != sf::Socket::Done)
+    {
+      ++port;
+      std::cout << "Failed, trying to listen on port " << port << std::endl;
+      if (listener.Listen(port) != sf::Socket::Done)
+      {
+        error = "Error: Could not create socket.";
+        return false;
+      }
+    }
   }
   int clients_so_far = 0;
   std::cout << "Waiting for " << clients << " client(s)" << std::endl;
@@ -90,10 +100,10 @@ bool Server::run()
 
 
   // Send planets
-  parse_file("test.map");
+  parse_planet_file("test.map");
 
   // Send players
-  sf::Packet player; 
+  sf::Packet player;
   for (int i = 0; i < client_list.size(); ++i)
   {
     // send all players 
@@ -171,15 +181,38 @@ bool Server::run()
   }
 }
 
-void Server::parse_file(const char *fname = "test.map"){
-  int x,y,rad,owner;
+void Server::parse_planet_file(const char *fname = "planets.map"){
+  int x, y, rad;
   std::ifstream input(fname);
   while( input >> x >> y >> rad )
   {
     std::cout << "Sending " << x << ", " << y << ", " << rad << std::endl;
     planet(x,y,rad);
   }
-  planet(-1,-1,-1);
+  planet(-1, -1, -1);
+}
+
+void Server::parse_moship_file(const char *fname = "moships.map")
+{
+  int x, y;
+  std::ifstream input(fname);
+  while (input >> x >> y)
+  {
+    std::cout << "Sending moship " << x << ", " << y << std::endl;
+    moship(x, y);
+  }
+  moship(-1, -1);
+}
+
+void Server::moship(int x, int y)
+{
+  sf::Packet moship_to_send;
+  for (int i = 0; i < client_list.size(); ++i)
+  {
+    moship_to_send << x << y;
+    client_list[i]->Send(moship_to_send);
+    moship_to_send.Clear();
+  }
 }
 
 void Server::planet(int x, int y, int rad)

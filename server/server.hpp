@@ -3,6 +3,7 @@
 #include <list>
 #include <iostream>
 #include <SFML/Network.hpp>
+#include "mapper.hpp"
 
 class Server
 {
@@ -41,6 +42,11 @@ class Server
     */
     bool send_action();
 
-    void parse_file(const char *fname);
+    void parse_planet_file(const char *fname);
+
+    void parse_moship_file(const char *fname);
+
+    void moship (int x, int y);
+
     void planet(int x, int y, int rad);
 };
