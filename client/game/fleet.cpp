@@ -60,7 +60,7 @@ FVector Fleet::repellFromShips(Ship* s, int myIndex) {
 }
   
 int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
-  std::cout << "Fleet travelling now. Owner: player " << owner.get_uid() << std::endl;
+  
   
   float dist = hypot( // the distance to the "time immume" fleet
     get_x(gameTime) - owner.get_moship()->get_x(),
@@ -70,11 +70,12 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   screenX = get_x(t);
   screenY = get_y(t);
   
-  std::cout << "Fleet still travelling. Owner: player " << owner.get_uid() << std::endl;
+  
   
   float p = (float)(t-startTime)/(float)(endTime-startTime);  // p: percent there
-  if (p<0.f) return -1;
-  if (p>1.f) return endTime;
+  if (p<0.f) {std::cout << "Fleet before launch time. Owner: player " << owner.get_uid() << std::endl; return -1; }
+  if (p>1.f) {std::cout << "Fleet has arrived. Owner: player " << owner.get_uid() << std::endl; return endTime; }
+  std::cout << "Fleet travelling. Owner: player " << owner.get_uid() << std::endl;
   
   for (int i=0; i<ships.size(); ++i) {
     ships[i]->addAcceleration(repellFromShips(ships[i], i), frameTime);
