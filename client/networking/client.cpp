@@ -44,13 +44,13 @@ int NetworkingClient::join()
   client.Send(ready_message);
 
   bool planet_end = false;
-  int x, y, radius, owner, id = 0;
+  int x, y, radius, id = 0;
   sf::Packet planet;
 
   while(!planet_end)
   {
     client.Receive(planet);
-    if (planet >> x >> y >> radius >> owner)
+    if (planet >> x >> y >> radius)
     {
       if (radius < 0)
       {
@@ -60,7 +60,7 @@ int NetworkingClient::join()
       else
       {
         //it's a regular planet, add it
-        std::cout << "Adding  planet at " << x << ", " << y << ", radius: " << radius << ", id: " << id << "owner: " << owner << std::endl;
+        std::cout << "Adding  planet at " << x << ", " << y << ", radius: " << radius << ", id: " << id << std::endl;
         game->add_planet(new Planet(x, y, radius, id));
         ++id;
       }
