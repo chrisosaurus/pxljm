@@ -114,4 +114,5 @@ void Server::pares_file(std::string fname = "test.map"){
   ifstream input(fname);
   while( input >> x >> y >> rad )
     planet(x,y,rad);
+  planet(-1,-1,-1);
 }
