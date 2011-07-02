@@ -9,7 +9,7 @@
 #define PI 3.14
 
 // can a player move ships from a planet he doenst control? 0 for yes, 1 for no
-#define VERIFY 0
+#define VERIFY 1
 
 sf::Color Interfacing::colour_from_uid(int uid){
   switch(uid){
