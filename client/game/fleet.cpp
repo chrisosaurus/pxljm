@@ -77,14 +77,20 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   if (p>1.f) {std::cout << "Fleet has arrived. Owner: player " << owner.get_uid() << std::endl; return endTime; }
   std::cout << "Fleet travelling. Owner: player " << owner.get_uid() << std::endl;
   
+  std::cout << "calculating ships: ";
   for (int i=0; i<ships.size(); ++i) {
+    std::cout << i << " ";
     ships[i]->addAcceleration(repellFromShips(ships[i], i), frameTime);
     ships[i]->addAcceleration(attractCentre(ships[i]), frameTime);
   }
+  std::cout << std::endl;
   
+  std::cout << "updating ships: ";
   for (int i=0; i<ships.size(); ++i) {
+    std::cout << i << " ";
     ships[i]->update(frameTime, screenX, screenY);
   }
+  std::cout << std::endl;
   
   std::cout << "Fleet end travel calculation. Owner: player " << owner.get_uid() << std::endl;
   return 0;
