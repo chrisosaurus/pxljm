@@ -28,6 +28,8 @@ public:
     void launch_fleet(Planet &src, Planet &dest);
     void remove_fleet(Fleet *f);
     void launch_fleet(int pid1, int pid2);
+
+    void add_planet(Planet *p);
     
     /**
      * Find a planet based on id
