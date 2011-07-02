@@ -27,8 +27,6 @@ int main(int argc, char *argv[]){
   ga.set_game();
 
   Interfacing in(ga, local_player);
-  int mx = local_player->get_uid() ? 200 : 400;
-  local_player->set_moship(new Mothership(mx,300));
   in.main();
   return 0;
 }
