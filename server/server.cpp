@@ -43,10 +43,15 @@ bool Server::run()
     }
   }
   std::cout << "All clients have connected. Sending ready query..." << std::endl;
+
+  sf::Packet ready_message;
+  std::string message = "Ready";
+  ready_message << message;
   for (int i = 0; i < client_list.size(); ++i)
   {
-    client_list[i]->Send("Ready", 6);
+    client_list[i]->Send(ready_message);
   }
+  ready_message.Clear();
 
   // Wait for ready responses
   int ready = 0;
@@ -59,10 +64,8 @@ bool Server::run()
         sf::TcpSocket *client_sending = client_list[i];
         if (selector.IsReady(*client_sending))
         {
-          char ready_message[8];
-          std::size_t received;
-          client_sending->Receive(ready_message, sizeof(ready_message), received);
-          if (!strcmp(ready_message, "Ready"))
+          client_sending->Receive(ready_message);
+          if ((ready_message >> message) && (message == "Ready"))
           {
             std::cout << "Client " << i << " is ready" << std::endl;
             ++ready;

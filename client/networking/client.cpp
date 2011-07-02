@@ -18,15 +18,24 @@ bool Client::init()
     error = "Could not connect to server.";
     return false;
   }
-  char ready_message[8];
-  std::size_t received = 0;
-  client.Receive(ready_message, sizeof(ready_message), received);
-  if (!strcmp(ready_message, "Ready"))
+  std::cout << "Waiting for ready message" << std::endl;
+  sf::Packet ready_message;
+  std::string message;
+  client.Receive(ready_message);
+  if ((ready_message >> message) && (message == "Ready"))
   {
     std::cout << "Received ready message. Sending reply." << std::endl;
+    ready_message.Clear();
+  }
+  else
+  {
+    std::cout << "Couldn't extract data. Something's gone wrong. It's best if I close now." << std::endl;
+    return false;
   }
 
-  client.Send("Ready", 6);
+  message = "Ready";
+  ready_message << message;
+  client.Send(ready_message);
 }
 
 bool send_fleet(Fleet *fleet_to_send)

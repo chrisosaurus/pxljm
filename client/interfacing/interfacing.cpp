@@ -100,16 +100,37 @@ void Interfacing::main(){
           // planet in the from, is there a plen in the too
           Planet *p2 = game.find_nearest_planet(mx, my);
           // send event, or ignore
-          if(p2)
+          if(p2){
             game.launch_fleet(*p, *p2);
+            // give dest planet a green border
+            sf::Shape s = sf::Shape::Circle(p->get_x(), p->get_y(), p->get_radius(), sf::Color::Black, 2, sf::Color::Green);
+            s.EnableFill(false);
+            window.Draw(s);
+            window.Display();
+          }
         } else {
-          // no planet in the from position, so ignore it
+          // no planet in the from position, so no event can happen
           lx = mx;
           ly = my;
+          //highlight the planet clicked just for shits and giggles
+          Planet *p = game.find_nearest_planet(lx,ly);
+          if(p){ // red outline
+            sf::Shape s = sf::Shape::Circle(p->get_x(), p->get_y(), p->get_radius(), sf::Color::Black, 2, sf::Color::Red);
+            s.EnableFill(false);
+            window.Draw(s);
+            window.Display();
+          }
         }
       } else { // if we didn't record last frame, record
         lx = mx;
         ly = my;
+        Planet *p = game.find_nearest_planet(lx,ly);
+        if(p){ // highlight planet with red outline
+            sf::Shape s = sf::Shape::Circle(p->get_x(), p->get_y(), p->get_radius(), sf::Color::Black, 2, sf::Color::Red);
+            s.EnableFill(false);
+            window.Draw(s);
+            window.Display();
+        }
       }
     } else if(input.IsMouseButtonDown(sf::Mouse::Right)){
       // a right click "empties" the stack"
