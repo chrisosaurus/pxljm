@@ -4,8 +4,7 @@
 
 NetworkingClient::NetworkingClient(const char *server_ip_address, unsigned short server_port)
   : server_ip(server_ip_address),
-  port(server_port),
-  game(client_game)
+  port(server_port)
 {
 }
 
