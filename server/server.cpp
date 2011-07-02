@@ -103,7 +103,18 @@ bool Server::run()
         sf::TcpSocket *client_sending = client_list[i];
         if (selector.IsReady(*client_sending))
         {
+          sf::Packet fleet_to_receive;
+          int from_id, to_id, timestamp;
           //receive fleet
+          if (fleet_to_receive >> from_id >> to_id >> timestamp)
+          {
+            if (timestamp < 0)
+            {
+              selector.Clear();
+              listener.Close();
+              std::cout << "Client quit. Closing server nicely" << std::endl;
+            }
+          }
         }
         for (int j = 0; j < client_list.size(); ++j)
         {
@@ -123,7 +134,7 @@ void Server::parse_file(const char *fname = "test.map"){
   std::ifstream input(fname);
   while( input >> x >> y >> rad )
   {
-    std::cout << "Sending " << x << y << rad << std::endl;
+    std::cout << "Sending " << x << ", " << y << ", " << rad << std::endl;
     planet(x,y,rad);
   }
   planet(-1,-1,-1);
