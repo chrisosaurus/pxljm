@@ -86,5 +86,6 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
     ships[i]->update(frameTime, screenX, screenY);
   }
   
+  std::cout << "Fleet end travel calculation. Owner: player " << owner.get_uid() << std::endl;
   return 0;
 }
