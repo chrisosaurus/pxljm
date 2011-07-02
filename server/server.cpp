@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "mapper.hpp" // function to create maps
 
 Server::Server(unsigned short listening_port, int num_clients)
   : port(listening_port),
