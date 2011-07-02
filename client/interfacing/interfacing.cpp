@@ -35,6 +35,7 @@ Interfacing::Interfacing(ClientGame& ga, Player *p)
   : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close),
     game(ga) {
       me = p;
+      window.SetFramerateLimit(60);
 }
 
 void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &players, std::vector<Fleet*> &fleets){
@@ -97,7 +98,7 @@ void Interfacing::main(){
 
   // go go go !
   while(window.IsOpened()){
-    sf::Sleep(10);
+    //sf::Sleep(10);
     // check for closing events
     while(window.PollEvent(event))
       if(event.Type == sf::Event::Closed)
@@ -123,7 +124,7 @@ void Interfacing::main(){
           Planet *p2 = game.find_nearest_planet(mx, my);
           // send event, or ignore
           if(p2){
-            game.launch_fleet(*p, *p2);
+            game.launch_fleet(*p, *p2, clock.GetElapsedTime());
             // give dest planet a green border
             sf::Shape s = sf::Shape::Circle(p->get_x(), p->get_y(), p->get_radius(), sf::Color::Black, 2, sf::Color::Green);
             s.EnableFill(false);
