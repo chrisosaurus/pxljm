@@ -95,10 +95,18 @@ bool NetworkingClient::send_fleet(Fleet *fleet)
   sf::Packet fleet_to_send;
   int from_id, to_id, timestamp;
   
-  from_id = fleet->orig.get_id();
-  to_id = fleet->dest.get_id();
-  timestamp = fleet->startTime;
-
+  if (fleet)
+  {  
+    from_id = fleet->orig.get_id();
+    to_id = fleet->dest.get_id();
+    timestamp = fleet->startTime;
+  }
+  else
+  {
+    from_id = -1;
+    to_id = -1;
+    timestamp = -1;
+  }
   if (!(fleet_to_send << from_id << to_id << timestamp))
   {
     std::cout << "Error putting fleet data into Packet." << std::endl;
