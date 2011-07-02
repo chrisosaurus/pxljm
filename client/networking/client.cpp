@@ -92,6 +92,7 @@ int NetworkingClient::join()
         new_player->set_moship(new Mothership(x, y, id));
         ++id;
         game->add_player(new_player);
+        game->add_planet(new_player->get_moship());
       }
     }
   }
