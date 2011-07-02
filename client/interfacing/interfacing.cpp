@@ -41,8 +41,6 @@ Interfacing::Interfacing(ClientGame& ga, Player *p)
 void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &players, std::vector<Fleet*> &fleets){
   window.Clear();
 
-  std::cout << "window cleared, we are off!" << std::endl;
-
   unsigned int frametime = window.GetFrameTime();
   unsigned int gametime = clock.GetElapsedTime(); // TODO to be consistant, is this ok?
   
@@ -119,6 +117,7 @@ void Interfacing::main(){
     //      record a click
     // a right click means: delete the click if it was recorded last frame
     if(input.IsMouseButtonDown(sf::Mouse::Left)){
+      std::cout << "left click!" << std::endl;
       // a left click could be an action
       if( ly > 0){ // omg, DO SOMETHING
         Planet *p = game.find_nearest_planet(lx, ly);
@@ -159,6 +158,7 @@ void Interfacing::main(){
         }
       }
     } else if(input.IsMouseButtonDown(sf::Mouse::Right)){
+      std::cout << "right click!" << std::endl
       // a right click "empties" the stack"
       lx=-1;
       ly=-1;
