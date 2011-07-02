@@ -158,7 +158,7 @@ void Interfacing::main(){
         }
       }
     } else if(input.IsMouseButtonDown(sf::Mouse::Right)){
-      std::cout << "right click!" << std::endl
+      std::cout << "right click!" << std::endl;
       // a right click "empties" the stack"
       lx=-1;
       ly=-1;
