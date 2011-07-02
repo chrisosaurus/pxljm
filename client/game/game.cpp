@@ -21,7 +21,16 @@ ClientGame::~ClientGame() {}
 
 void ClientGame::launch_fleet(Planet &src, Planet &dest) {
     Fleet *f = src.launch_fleet(dest);
-    // TODO Inform networking of fleet dispatch
+    if (&f->owner == src.get_player())
+        net->send_fleet(f);
+    fleets.push_back(f);
+}
+
+void ClientGame::remove_fleet(Fleet *f) {
+    /* This should really use a set */
+    std::vector<Fleet *>::iterator it = std::find(fleets.begin(), fleets.end(), f);
+    if (it != fleets.end())
+        fleets.remove(f);
 }
 
 struct pid : std::binary_function <Planet *, int, bool> {
