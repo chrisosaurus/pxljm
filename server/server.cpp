@@ -98,6 +98,7 @@ bool Server::run()
   {
     if (selector.Wait())
     {
+      std::cout << "Yay got a packet!!" << std::endl;
       for (int i = 0; i < client_list.size(); ++i)
       {
         sf::TcpSocket *client_sending = client_list[i];
@@ -105,24 +106,29 @@ bool Server::run()
         {
           sf::Packet fleet_to_receive;
           int from_id, to_id, timestamp;
-          //receive fleet
+          client_sending->Receive(fleet_to_receive);
           if (fleet_to_receive >> from_id >> to_id >> timestamp)
           {
+            std::cout << "Got a fleet" << std::endl;
             if (timestamp < 0)
             {
+              std::cout << "It's a quit fleet" << std::endl;
               selector.Clear();
               listener.Close();
               std::cout << "Client quit. Closing server nicely" << std::endl;
+              return true;
             }
           }
-        }
-        for (int j = 0; j < client_list.size(); ++j)
-        {
-          if (client_list[j] == client_sending)
+          for (int j = 0; j < client_list.size(); ++j)
           {
-            continue;
+            if (client_list[j] == client_sending)
+            {
+              continue;
+            }
+            fleet_to_receive.Clear();
+            fleet_to_receive << from_id << to_id << timestamp;
+            client_list[j]->Send(fleets_to_receive);
           }
-          //send fleet
         }
       }
     }
