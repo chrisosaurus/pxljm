@@ -58,6 +58,8 @@ FVector Fleet::repellFromShips(Ship* s, int myIndex) {
 }
   
 int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
+  std::cout << "Fleet travelling now. Owner: player " << owner.get_uid() << std::endl;
+  
   float dist = hypot( // the distance to the "time immume" fleet
     get_x(gameTime) - owner.get_moship()->get_x(),
     get_y(gameTime) - owner.get_moship()->get_y()
@@ -65,6 +67,8 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   int t = gameTime - (int)(dist/LIGHTSPEED);  // the time of the viewed fleet
   screenX = get_x(t);
   screenY = get_y(t);
+  
+  std::cout << "Fleet still travelling. Owner: player " << owner.get_uid() << std::endl;
   
   float p = (float)(t-startTime)/(float)(endTime-startTime);  // p: percent there
   if (p<0.f) return -1;
