@@ -96,13 +96,15 @@ bool NetworkingClient::send_fleet(Fleet *fleet)
   int from_id, to_id, timestamp;
   
   if (fleet)
-  {  
+  {
+    std::cout << "Valid fleet" << std::endl;
     from_id = fleet->orig.get_id();
     to_id = fleet->dest.get_id();
     timestamp = fleet->startTime;
   }
   else
   {
+    std::cout << "Invalid fleet. Quitting" << std::endl;
     from_id = -1;
     to_id = -1;
     timestamp = -1;
