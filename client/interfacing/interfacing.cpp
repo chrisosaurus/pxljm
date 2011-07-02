@@ -8,6 +8,9 @@
 
 #define PI 3.14
 
+// can a player move ships from a planet he doenst control? 0 for yes, 1 for no
+#define VERIFY 0
+
 sf::Color Interfacing::colour_from_uid(int uid){
   switch(uid){
     case 0:
@@ -60,9 +63,8 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
       window.Draw(ship);
     }
   }
-  std::cout << "drawing planets:" << std::endl;
+
   for( int i=0; i<planets.size(); ++i){
-    std::cout << "planet: " << planets[i]->get_x() << ", " << planets[i]->get_y() << ", " << planets[i]->get_radius() << std::endl;
     const Player * p = planets[i]->get_player();
     sf::Color c = colour_from_uid( p ? p->get_uid() : -1 ); // defaults to grey, for unowned.
     sf::Shape planet = sf::Shape::Circle(planets[i]->get_x(), planets[i]->get_y(), planets[i]->get_radius(), c, 0, c);
@@ -73,10 +75,10 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
     sf::Color c = colour_from_uid(players[i]->get_uid());
     sf::Shape moship;
     Mothership *ms = players[i]->get_moship();
-    moship.AddPoint(ms->get_x()+2, ms->get_y(), c, c);
-    moship.AddPoint(ms->get_x()-2, ms->get_y()-2, c, c);
-    moship.AddPoint(ms->get_x()-2, ms->get_y()+2, c, c);
-    moship.EnableFill(false);
+    moship.AddPoint(ms->get_x()+20, ms->get_y(), c, c);
+    moship.AddPoint(ms->get_x()-20, ms->get_y()-20, c, c);
+    moship.AddPoint(ms->get_x()-20, ms->get_y()+20, c, c);
+    moship.EnableFill(true);
     moship.Rotate(ms->get_rotation());
     window.Draw(moship);
   }
@@ -131,10 +133,12 @@ void Interfacing::main(){
           Planet *p2 = game.find_nearest_planet(mx, my, 1);
           // send event, or ignore
           if(p2){
+#if VERIFY
             if( p->get_player() != me ){
               ly = -1, lx = -1;
               continue;
             }
+#endif
             game.launch_fleet(*p, *p2, clock.GetElapsedTime());
             // give dest planet a green border
             sf::Shape s = sf::Shape::Circle(p2->get_x(), p2->get_y(), p2->get_radius(), sf::Color::Black, 2, sf::Color::Green);
