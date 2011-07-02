@@ -35,7 +35,7 @@ sf::Color Interfacing::colour_from_uid(int uid){
 }
 
 Interfacing::Interfacing(ClientGame& ga, Player *p)
-  : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Fullscreen),
+  : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close),
     game(ga) {
       me = p;
       window.SetFramerateLimit(60);
