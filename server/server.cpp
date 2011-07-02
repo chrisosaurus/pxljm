@@ -93,6 +93,30 @@ bool Server::run()
   // Send planets
   parse_file("test.map");
 
+  // Send players
+  sf::Packet player; 
+  for (int i = 0; i < client_list.size(); ++i)
+  {
+    // send all players 
+    int x, y;
+    // FIXME hard-coded mothership coords
+    x = 500 + i*10;
+    y = 400 - i*5;
+    player.Clear();
+    player << x << y << i;
+    
+    std::cout << "Sending player at " << x << ", " << y << ", uid:" << i << std::endl;
+    for (int j = 0; j < client_list.size(); ++j)
+    {
+      client_list[j]->Send(player);
+    }
+  }
+  player.Clear();
+  for (int i = 0; i < client_list.size(); ++i)
+  {
+    player << -1 << -1 << -1;
+    client_list[i]->Send(player);
+  }
 
   // Main loop yay
   while (true)
@@ -100,6 +124,15 @@ bool Server::run()
     if (selector.Wait())
     {
       std::cout << "Yay got a packet!!" << std::endl;
+      
+      //if someone else tries to connect, actively kick them
+      if (selector.IsReady(listener))
+      {
+        sf::TcpSocket rejected_client;
+        listener.Accept(rejected_client);
+        rejected_client.Disconnect();
+      }
+
       for (int i = 0; i < client_list.size(); ++i)
       {
         sf::TcpSocket *client_sending = client_list[i];
@@ -139,20 +172,20 @@ bool Server::run()
 void Server::parse_file(const char *fname = "test.map"){
   int x,y,rad,owner;
   std::ifstream input(fname);
-  while( input >> x >> y >> rad >> owner )
+  while( input >> x >> y >> rad )
   {
     std::cout << "Sending " << x << ", " << y << ", " << rad << std::endl;
-    planet(x,y,rad,owner);
+    planet(x,y,rad);
   }
-  planet(-1,-1,-1, -1);
+  planet(-1,-1,-1);
 }
 
-void Server::planet(int x, int y, int rad, int owner)
+void Server::planet(int x, int y, int rad)
 {
   sf::Packet planet_to_send;
   for (int i = 0; i < client_list.size(); ++i)
   {
-    planet_to_send << x << y << rad << owner;
+    planet_to_send << x << y << rad;
     client_list[i]->Send(planet_to_send);
     planet_to_send.Clear();
   }

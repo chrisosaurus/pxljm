@@ -42,5 +42,5 @@ class Server
     bool send_action();
 
     void parse_file(const char *fname);
-    void planet(int x, int y, int rad, int owner);
+    void planet(int x, int y, int rad);
 };
