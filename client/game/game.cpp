@@ -71,11 +71,13 @@ Planet *ClientGame::find_nearest_planet(int x, int y, int limit) {
     int min_d2, d2, dx, dy;
     Planet *p = 0;
     for (std::vector<Planet *>::iterator it = planets.begin(), it_end = planets.end(); it != it_end; ++it) {
-        dx = std::abs((*it)->get_x() - x);
-        dy = std::abs((*it)->get_y() - y);
+        dx = std::max(std::abs((*it)->get_x() - x) - (*it)->get_radius(), 0);
+        dy = std::max(std::abs((*it)->get_y() - y) - (*it)->get_radius(), 0);
         d2 = dx*dx + dy*dy;
-        if ((!p || d2 < min_d2) && (!limit || d2 < limit))
+        if ((!p || d2 < min_d2) && (!limit || d2 < limit)) {
             p = *it;
+            min_d2 = d2;
+        }
     }
     return p;
 }
