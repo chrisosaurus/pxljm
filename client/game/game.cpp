@@ -48,9 +48,7 @@ void ClientGame::remove_fleet(Fleet *f) {
 }
 
 void ClientGame::add_planet(Planet *p) {
-  std::cout << "starting the add" << std::endl;
   planets.push_back(p);
-  std::cout << "finished, and we didn't even blow up!" << std::endl;
 }
 
 struct pid : std::binary_function <Planet *, int, bool> {
