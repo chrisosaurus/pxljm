@@ -122,10 +122,12 @@ void Interfacing::main(){
       if( ly > 0){ // omg, DO SOMETHING
         Planet *p = game.find_nearest_planet(lx, ly);
         if(p){
+          std::cout << "found a planet under the last click" << std::endl;
           // planet in the from, is there a plen in the too
           Planet *p2 = game.find_nearest_planet(mx, my);
           // send event, or ignore
           if(p2){
+            std::cout << "found a second planet under the recent click" << std::endl;
             game.launch_fleet(*p, *p2, clock.GetElapsedTime());
             // give dest planet a green border
             sf::Shape s = sf::Shape::Circle(p->get_x(), p->get_y(), p->get_radius(), sf::Color::Black, 2, sf::Color::Green);
@@ -134,6 +136,7 @@ void Interfacing::main(){
             window.Display();
           }
         } else {
+          std::cout << "no planet under my last click" << std::endl;
           // no planet in the from position, so no event can happen
           lx = mx;
           ly = my;
