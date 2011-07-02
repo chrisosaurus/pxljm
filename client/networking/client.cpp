@@ -2,14 +2,14 @@
 #include "../game/game.hpp"
 #include "../game/planet.hpp"
 
-Client::Client(const char *server_ip_address, unsigned short server_port, ClientGame *client_game)
+NetworkingClient::NetworkingClient(const char *server_ip_address, unsigned short server_port, ClientGame *client_game)
   : server_ip(server_ip_address),
   port(server_port),
   game(client_game)
 {
 }
 
-int Client::join()
+int NetworkingClient::join()
 {
   if (client.Connect(server_ip, port) != sf::Socket::Done)
   {
@@ -64,7 +64,7 @@ int Client::join()
   return player_id;
 }
 
-bool Client::send_fleet(Fleet *fleet_to_send)
+bool NetworkingClient::send_fleet(Fleet *fleet_to_send)
 {
   // TODO: send the fleet to server
 }

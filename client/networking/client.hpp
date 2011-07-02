@@ -8,7 +8,7 @@
 
 class ClientGame;
 
-class Client
+class NetworkingClient
 {
   std::string error;
   unsigned short port;
@@ -26,7 +26,7 @@ class Client
      * @param server_ip_address the external IP of the server.
      * @param server_port the port that the server is listening on.
      */
-    Client(const char *server_ip_address, unsigned short server_port, ClientGame *client_game);
+    NetworkingClient(const char *server_ip_address, unsigned short server_port, ClientGame *client_game);
 
     /**
      * @brief initialise and do everything
