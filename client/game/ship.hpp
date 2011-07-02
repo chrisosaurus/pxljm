@@ -1,12 +1,18 @@
 #ifndef SHIP_H
 #define SHIP_H
+
 #include <iostream>
+#include "fvector.hpp"
 
 #define LIGHTSPEED 9001
 
-class Ship {
-public:
 
+class Ship {
+private:
+  FVector dV;
+  FVector vel;
+  FVector pos;
+public:
   // only to be accessed by Fleet
   int x;
   int y;
@@ -17,6 +23,10 @@ public:
   float rot;  // in radians
 
   Ship(int offsetX, int offsetY);
+  
+  void addAcceleration(FVector acc, int dt);
+  
+  void iterate(int dt);
 };
 
 #endif

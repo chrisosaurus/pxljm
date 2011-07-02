@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
+#include "fvector.hpp"
 #include "ship.hpp"
 #include "fleet.hpp"
 #include "planet.hpp"
