@@ -2,11 +2,16 @@
 #include "../game/game.hpp"
 #include "../game/planet.hpp"
 
-NetworkingClient::NetworkingClient(const char *server_ip_address, unsigned short server_port, ClientGame *client_game)
+NetworkingClient::NetworkingClient(const char *server_ip_address, unsigned short server_port)
   : server_ip(server_ip_address),
   port(server_port),
   game(client_game)
 {
+}
+
+void NetworkingClient::init(ClientGame *client_game)
+{
+  game = client_game;
 }
 
 int NetworkingClient::join()

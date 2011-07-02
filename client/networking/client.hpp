@@ -27,7 +27,9 @@ class NetworkingClient
      * @param server_port the port that the server is listening on.
      * @param client_game a pointer to ClientGame, so we can add planets when received from the server
      */
-    NetworkingClient(const char *server_ip_address, unsigned short server_port, ClientGame *client_game);
+    NetworkingClient(const char *server_ip_address, unsigned short server_port);
+
+    void init(ClientGame *client_game);
 
     /**
      * @brief initialise and do everything
