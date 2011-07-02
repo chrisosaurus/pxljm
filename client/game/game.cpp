@@ -74,7 +74,7 @@ Planet *ClientGame::find_nearest_planet(int x, int y, int limit) {
         dx = std::abs((*it)->get_x() - x);
         dy = std::abs((*it)->get_y() - y);
         d2 = dx*dx + dy*dy;
-        if ((!p || d2 < min_d2) && d2 < limit)
+        if ((!p || d2 < min_d2) && (!limit || d2 < limit))
             p = *it;
     }
     return p;
