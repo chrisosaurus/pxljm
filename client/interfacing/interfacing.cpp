@@ -120,17 +120,17 @@ void Interfacing::main(){
       std::cout << "left click!" << std::endl;
       // a left click could be an action
       if( ly > 0){ // omg, DO SOMETHING
-        Planet *p = game.find_nearest_planet(lx, ly);
+        Planet *p = game.find_nearest_planet(lx, ly, 1);
         if(p){
           std::cout << "found a planet under the last click" << std::endl;
           // planet in the from, is there a plen in the too
-          Planet *p2 = game.find_nearest_planet(mx, my);
+          Planet *p2 = game.find_nearest_planet(mx, my, 1);
           // send event, or ignore
           if(p2){
             std::cout << "found a second planet under the recent click" << std::endl;
             game.launch_fleet(*p, *p2, clock.GetElapsedTime());
             // give dest planet a green border
-            sf::Shape s = sf::Shape::Circle(p->get_x(), p->get_y(), p->get_radius(), sf::Color::Black, 2, sf::Color::Green);
+            sf::Shape s = sf::Shape::Circle(p2->get_x(), p2->get_y(), p2->get_radius(), sf::Color::Black, 2, sf::Color::Green);
             s.EnableFill(false);
             window.Draw(s);
             window.Display();
@@ -141,7 +141,7 @@ void Interfacing::main(){
           lx = mx;
           ly = my;
           //highlight the planet clicked just for shits and giggles
-          Planet *p = game.find_nearest_planet(lx,ly);
+          Planet *p = game.find_nearest_planet(lx,ly, 1);
           if(p){ // red outline
             sf::Shape s = sf::Shape::Circle(p->get_x(), p->get_y(), p->get_radius(), sf::Color::Black, 2, sf::Color::Red);
             s.EnableFill(false);
