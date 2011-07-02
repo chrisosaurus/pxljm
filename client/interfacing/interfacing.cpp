@@ -102,10 +102,13 @@ void Interfacing::main(){
     //sf::Sleep(10);
     // check for closing events
     while(window.PollEvent(event))
-      if(event.Type == sf::Event::Closed)
+      if(event.Type == sf::Event::Closed){
+        die();
         window.Close();
-      else if((event.Type == sf::Event::KeyPressed) && (event.Key.Code == sf::Key::Escape))
+      }else if((event.Type == sf::Event::KeyPressed) && (event.Key.Code == sf::Key::Escape)){
+        die();
         window.Close();
+      }
 
     // if we are here, we are alive!
     mx = input.GetMouseX();
@@ -172,4 +175,8 @@ void Interfacing::main(){
     
     game.logic(*this);
   }
+}
+
+void Interfacing::die(){
+  game.die();
 }
