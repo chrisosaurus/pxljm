@@ -46,7 +46,9 @@ bool Server::run()
 
   sf::Packet ready_message;
   std::string message = "Ready";
-  ready_message << message;
+  //ready_message << message;
+
+  ready_message.Clear();
   for (int i = 0; i < client_list.size(); ++i)
   {
     std::cout << client_list.size() << ", " << i << std::endl;
