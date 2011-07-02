@@ -37,7 +37,7 @@ class NetworkingClient
      * @return player identifier number
      */
     int join();
-
+    
     /**
      *
      */
