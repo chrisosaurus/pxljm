@@ -89,7 +89,7 @@ int NetworkingClient::join()
         // it's a regular player, add it
         std::cout << "Adding mothership at " << x << ", " << y << ", id:" << id << std::endl;
         Player *new_player = new Player(uid);
-        new_player->set_moship(new Mothership(x, y, id));
+        new_player->set_moship(new Mothership(x, y, id, new_player));
         ++id;
         game->add_player(new_player);
         game->add_planet(new_player->get_moship());

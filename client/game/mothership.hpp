@@ -9,7 +9,7 @@ class Mothership : public Planet {
     int rotation;
 
 public:
-    Mothership(int posx, int posy, int vid);
+    Mothership(int posx, int posy, int vid, Player *vowner);
 
     ~Mothership();
 

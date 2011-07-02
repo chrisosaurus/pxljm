@@ -1,7 +1,9 @@
 #include "mothership.hpp"
 
-Mothership::Mothership(int posx, int posy, int vid)
-    : Planet(posx, posy, 100, vid), rotation(0) {}
+Mothership::Mothership(int posx, int posy, int vid, Player *vowner)
+    : Planet(posx, posy, 100, vid), rotation(0) {
+    owner = vowner;
+}
 
 Mothership::~Mothership() {}
 
