@@ -83,6 +83,7 @@ int NetworkingClient::join()
       {
         // It's a player end packet, stop receiving players
         player_end = true;
+        std::cout << "Got end packet" << std::endl;
       }
       else
       {
