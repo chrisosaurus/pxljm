@@ -28,8 +28,8 @@ void ClientGame::launch_fleet(Planet &src, Planet &dest, int timestamp) {
     if (&f->owner == src.get_player())
         net->send_fleet(f);
     fleets.push_back(f);
-    std::multimap<int, std::pair<int, int> >::iterator it = history.insert(history.rbegin(), std::make_pair(timestamp, std::make_pair(src.get_id(), dest.get_id()))); /* Should almost always be at the end (Race conditions otherwise, whee) */
-    if (it == history.rbegin())
+    std::multimap<int, std::pair<int, int> >::iterator it = history.insert(--history.end(), std::make_pair(timestamp, std::make_pair(src.get_id(), dest.get_id()))); /* Should almost always be at the end (Race conditions otherwise, whee) */
+    if (it == --history.end())
         return; /* New end - no history propogation required. */
     /* FIXME - Out of sync, recompute as needed to fix potential issues (yay, race conditions) */
 }

@@ -3,7 +3,7 @@
 
 #include "planet.hpp"
 
-Planet::Planet(int vx, int vy, int vcapacity, int vid) : x(vx), y(vx), capacity(vcapacity), id(vid), ships(0), tick(1), owner(0) { }
+Planet::Planet(int vx, int vy, int vcapacity, int vid) : x(vx), y(vx), capacity(vcapacity), id(vid), last_ships(0), last_tick(0), owner(0) { }
 
 Planet::~Planet() {}
 
@@ -36,18 +36,18 @@ void Planet::ships_arrival(Player *player, int amount, int current_time) {
         set_ship_count(current_time, std::min(capacity, get_ship_count(current_time) + amount));
     } else {
         /* Assault */
-        int ships = get_ship_count() - amount;
+        int ships = get_ship_count(current_time) - amount;
         if (ships < 0) {
             ships = -ships;
             owner = player;
         }
-        set_ship_count(current_time, ship_count);
+        set_ship_count(current_time, ships);
     }
 }
 
 Fleet *Planet::launch_fleet(Planet &dest, int launch_time) {
     /* Always send half the available amount. */
-    int ships = get_ship_count();
+    int ships = get_ship_count(launch_time);
     Fleet *f = new Fleet(ships >> 1, *this, dest, launch_time, *owner);
     set_ship_count(launch_time, ships - ships >> 1);
     return f;

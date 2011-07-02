@@ -16,7 +16,7 @@ private:
 
     Player *owner;
     
-    void set_ship_count();
+    void set_ship_count(int current_time, int ship_count);
 
 public:
     Planet(int vx, int vy, int vcapacity, int vid);
@@ -29,7 +29,7 @@ public:
     
     int get_radius() const;
 
-    virtual int get_ship_count() const;
+    virtual int get_ship_count(int current_time) const;
 
     int get_id() const;
 
