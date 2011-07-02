@@ -41,6 +41,8 @@ Interfacing::Interfacing(ClientGame& ga, Player *p)
 void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &players, std::vector<Fleet*> &fleets){
   window.Clear();
 
+  std::cout << "window cleared, we are off!" << std::endl;
+
   unsigned int frametime = window.GetFrameTime();
   unsigned int gametime = clock.GetElapsedTime(); // TODO to be consistant, is this ok?
 
@@ -161,6 +163,7 @@ void Interfacing::main(){
       lx=-1;
       ly=-1;
     }
-
+    
+    game.logic(*this);
   }
 }
