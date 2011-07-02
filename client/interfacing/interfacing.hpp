@@ -9,6 +9,7 @@ class Interfacing{
     ClientGame game;
     Player *me; // pointer to the player I am
     sf::Clock clock; // for game time
+    sf::Color colour_from_uid(int uid);
   public:
     // this is a constructor, herpa derpety derp
     Interfacing(ClientGame& ga, Player *p);

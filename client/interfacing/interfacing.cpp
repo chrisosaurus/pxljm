@@ -8,6 +8,29 @@
 
 #define PI 3.14
 
+sf::Color Interfacing::colour_from_uid(int uid){
+  switch(uid){
+    case 1:
+      return sf::Color::White;
+    case 2:
+      return sf::Color::Red;
+    case 3:
+      return sf::Color::Green;
+    case 4:
+      return sf::Color::Blue;
+    case 5:
+      return sf::Color::Yellow;
+    case 6:
+      return sf::Color::Magenta;
+    case 7:
+      return sf::Color::Cyan;
+    case 8:
+      return sf::Color(255, 128, 0); // ornage
+    default:
+      return sf::Color(128,128,128);; // errro or unowned
+  }
+}
+
 Interfacing::Interfacing(ClientGame& ga, Player *p)
   : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close),
     game(ga) {
@@ -23,9 +46,8 @@ void Interfacing::draw(std::vector<Planet> &planets, std::vector<Player> &player
   // draw ships first
   for( int i=0; i<fleets.size(); ++i){
     sf::Shape ship;
-    // TODO adjust colour based on player
-    sf::Color c = sf::Color::Red;
-    Fleet &fleet = fleets[i]; // TODO go through ships below
+    Fleet &fleet = fleets[i];
+    sf::Color c = colour_from_uid(fleet.owner.get_uid());
     fleet.update(me->get_moship()->get_x(), me->get_moship()->get_y(), gametime, frametime);
     for( int j=0; j<fleet.ships.size(); ++j){
       Ship * s = fleet.ships[i];
@@ -39,14 +61,14 @@ void Interfacing::draw(std::vector<Planet> &planets, std::vector<Player> &player
   }
 
   for( int i=0; i<planets.size(); ++i){
-    sf::Color c = sf::Color::Blue; // TODO define per player
-    sf::Shape planet = sf::Shape::Circle(planets[i].get_x(), planets[i].get_y(), planets[i].get_radius(), c, 0, c); // TODO handle highlighting later
+    sf::Color c = sf::Color::Black; // FIXME remove and replace with below
+    //sf::Color c = colour_from_uid(planets[i].get_pid()); // TODO FIXME defaults to grey, for unowned. good. waiting for functionality from ben
+    sf::Shape planet = sf::Shape::Circle(planets[i].get_x(), planets[i].get_y(), planets[i].get_radius(), c, 0, c);
     window.Draw(planet);
   }
 
-  // TODO watch this space, moship will prob become player
   for( int i=0; i<players.size(); ++i){
-    sf::Color c = sf::Color::Green; // TODO define per player and/or make a better moship
+    sf::Color c = colour_from_uid(players[i].get_uid());
     sf::Shape moship;
     Mothership *ms = players[i].get_moship();
     moship.AddPoint(ms->get_x()+2, ms->get_y(), c, c);
