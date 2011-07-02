@@ -17,8 +17,10 @@
 // default ip to connect to, could be 127.0.0.1 later. for now link to server
 #define DEFAULTIP "10.1.1.104"
 
+Player *local_player = 0;
+
 int main(int argc, char *argv[]){
-  char *ip = DEFAULTIP;
+  const char *ip = DEFAULTIP;
   if(argc > 1)
     ip = argv[1];
 #if BENS_WORK_DONE

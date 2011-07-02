@@ -3,11 +3,14 @@
 
 #include "game.hpp"
 
+#include "../networking/client.hpp"
 #include "fleet.hpp"
 #include "planet.hpp"
 
 
-ClientGame::ClientGame() {}
+ClientGame::ClientGame(const char *ip, int port) : net(new Client(ip, port))  {
+    
+}
 
 ClientGame::~ClientGame() {}
 

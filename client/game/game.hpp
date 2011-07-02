@@ -2,6 +2,8 @@
 #define CLIENTGAME_H
 #include <vector>
 
+
+class Client;
 class Planet;
 class Player;
 class Fleet;
@@ -12,8 +14,10 @@ class ClientGame {
     std::vector<Player *> players;
 
     std::vector<Fleet *> fleets;
+
+    Client *net;
 public:
-    ClientGame();
+    ClientGame(const char *ip, int port = 45672);
     
     ~ClientGame();
     

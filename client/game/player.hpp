@@ -9,4 +9,7 @@ class Player{
     int get_uid() { return UID; }
     Mothership* get_moship() { return moship; }
 };
+
+extern Player *local_player;
+
 #endif
