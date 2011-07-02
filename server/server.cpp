@@ -1,5 +1,8 @@
 #include "server.hpp"
 
+#include <string>
+#include <iostream>
+
 Server::Server(unsigned short listening_port, int num_clients)
   : port(listening_port),
   clients(num_clients)
@@ -104,4 +107,11 @@ bool Server::run()
       }
     }
   }
+}
+
+void Server::pares_file(std::string fname = "test.map"){
+  int x,y,rad;
+  ifstream input(fname);
+  while( input >> x >> y >> rad )
+    planet(x,y,rad);
 }

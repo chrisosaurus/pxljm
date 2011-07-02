@@ -39,4 +39,7 @@ class Server
      * @return Returns true if everything went well
     */
     bool send_action();
+
+    void parse_file(std::string fname);
+    void send_planet(int x, int y, int rad);
 };
