@@ -46,7 +46,7 @@ int NetworkingClient::join()
   while(!planet_end)
   {
     client.Receive(planet);
-    if (!(planet >> x >> y >> radius))
+    if (planet >> x >> y >> radius)
     {
       if (radius < 0)
       {
