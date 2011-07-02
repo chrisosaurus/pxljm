@@ -24,6 +24,7 @@ int main(int argc, char *argv[]){
 
   // this is used so I can show the expected interface without loosing the ability to make
   ClientGame ga(ip); // need to give a server ip and be able to get a player out of this. ga also needs to call draw
+  ga.set_game();
   Interfacing in(ga, local_player);
   int mx = local_player->get_uid() ? 200 : 400;
   local_player->set_moship(new Mothership(mx,300));

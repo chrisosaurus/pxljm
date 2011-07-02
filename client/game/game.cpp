@@ -10,7 +10,7 @@
 #include "player.hpp"
 
 
-ClientGame::ClientGame(const char *ip, int port) : net(new NetworkingClient(ip, port, 0/*FIXME with game*/))  {
+ClientGame::ClientGame(const char *ip, int port) : net(new NetworkingClient(ip, port))  {
     local_player = new Player(net->join());
     
     
@@ -18,6 +18,10 @@ ClientGame::ClientGame(const char *ip, int port) : net(new NetworkingClient(ip, 
 }
 
 ClientGame::~ClientGame() {}
+
+void ClientGame::set_game(){
+  net.init(this);
+}
 
 void ClientGame::launch_fleet(Planet &src, Planet &dest, int timestamp) {
     Fleet *f = src.launch_fleet(dest, timestamp);

@@ -21,7 +21,9 @@ public:
     ClientGame(const char *ip, int port = 7000);
     
     ~ClientGame();
-    
+
+    void set_game();
+
     /**
      * Send a fleet of the specified amount from the source planet, heading towards a destination planet.
      */
