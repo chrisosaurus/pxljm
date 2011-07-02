@@ -14,7 +14,7 @@ int Planet::get_radius() const { return radius; }
 
 int Planet::get_id() const { return id; }
 
-const Player &Planet::get_player() const { return *owner; }
+const Player * const Planet::get_player() const { return owner; }
 
 void Planet::ships_arrival(Player *player, int amount) {
     if (player == owner) {
