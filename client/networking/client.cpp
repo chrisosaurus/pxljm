@@ -31,6 +31,7 @@ int NetworkingClient::join()
   else
   {
     std::cout << "Couldn't extract data. Something's gone wrong. It's best if I close now." << std::endl;
+    error = "Couldn't extract data";
     throw error;
   }
 
@@ -61,10 +62,81 @@ int NetworkingClient::join()
     }
   }
 
+  client.SetBlocking(false);
   return player_id;
 }
 
-bool NetworkingClient::send_fleet(Fleet *fleet_to_send)
+bool NetworkingClient::receive_fleet()
 {
-  // TODO: send the fleet to server
+  sf::Packet received_fleet;
+  int from_id, to_id, qty, timestamp;
+
+  if (client.Receive != sf::Socket::Done)
+  {
+    return false;
+  }
+
+  if (!(received_fleet >> from_id >> to_id >> qty >> timestamp))
+  {
+    std::cout << "Error extracting data from Packet" << std::endl;
+    error = "Error extracting data from Packet";
+    throw error;
+  }
+  game->launch_fleet(from_id, to_id, qty, timestamp);
 }
+
+bool NetworkingClient::send_fleet(Fleet *fleet)
+{
+  sf::Packet fleet_to_send;
+  int from_id, to_id, qty, timestamp;
+  
+  from_id = fleet->orig.get_id();
+  to_id = fleet->dest.get_id();
+  qty = fleet->ships.size();
+  timestamp = fleet->startTime;
+
+  if (!(fleet_to_send << from_id << to_id << qty << timestamp))
+  {
+    std::cout << "Error putting fleet data into Packet." << std::endl;
+    error = "Error putting fleet data into Packet";
+    throw error;
+  }
+  client.Send(fleet_to_send);
+  return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
