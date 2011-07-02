@@ -22,12 +22,9 @@ int main(int argc, char *argv[]){
   if(argc > 1)
     ip = argv[1];
 
-  std::cout << "starting" << std::endl;
   // this is used so I can show the expected interface without loosing the ability to make
   ClientGame ga(ip); // need to give a server ip and be able to get a player out of this. ga also needs to call draw
-  std::cout << "calling:" << std::endl;
   ga.set_game();
-  std::cout << "dont..." << std::endl;
 
   Interfacing in(ga, local_player);
   int mx = local_player->get_uid() ? 200 : 400;

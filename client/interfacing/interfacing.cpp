@@ -62,7 +62,8 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
   }
 
   for( int i=0; i<planets.size(); ++i){
-    sf::Color c = colour_from_uid(planets[i]->get_player()->get_uid()); // defaults to grey, for unowned.
+    Planet * p = planets[i];
+    sf::Color c = colour_from_uid( p ? p->get_player()->get_uid() : 0 ); // defaults to grey, for unowned.
     sf::Shape planet = sf::Shape::Circle(planets[i]->get_x(), planets[i]->get_y(), planets[i]->get_radius(), c, 0, c);
     window.Draw(planet);
   }
