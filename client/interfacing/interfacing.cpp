@@ -115,7 +115,7 @@ void Interfacing::main(){
           // planet in the from, is there a plen in the too
           Planet *p2 = game.find_nearest_planet(mx, my, 1);
           // send event, or ignore
-          if(p2){
+          if(p!=p2 && p2){
             
             //std::cout << "checking if I own the from " << p << " thats p, me is " << me << "and player is" << p->get_player() << std::endl;
             if( !p->get_player() || p->get_player()->get_uid() != me->get_uid() ){
@@ -128,6 +128,11 @@ void Interfacing::main(){
             //std::cout << "launched!" << std::endl;
             // give dest planet a green border
             sf::Shape s = sf::Shape::Circle(p2->get_x(), p2->get_y(), p2->get_radius(), sf::Color::Black, 2, sf::Color::Green);
+            s.EnableFill(false);
+            window.Draw(s);
+            window.Display();
+          } else {
+            sf::Shape s = sf::Shape::Circle(p2->get_x(), p2->get_y(), p2->get_radius(), sf::Color::Black, 2, sf::Color::Red);
             s.EnableFill(false);
             window.Draw(s);
             window.Display();
