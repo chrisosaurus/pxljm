@@ -10,6 +10,8 @@
 
 sf::Color Interfacing::colour_from_uid(int uid){
   switch(uid){
+    case 0:
+      return sf::Color(255, 128, 0); // ornage
     case 1:
       return sf::Color::White;
     case 2:
@@ -24,10 +26,8 @@ sf::Color Interfacing::colour_from_uid(int uid){
       return sf::Color::Magenta;
     case 7:
       return sf::Color::Cyan;
-    case 8:
-      return sf::Color(255, 128, 0); // ornage
     default:
-      return sf::Color(128,128,128);; // errro or unowned
+      return sf::Color(128,128,128);; // error or unowned(grey)
   }
 }
 
@@ -61,8 +61,7 @@ void Interfacing::draw(std::vector<Planet> &planets, std::vector<Player> &player
   }
 
   for( int i=0; i<planets.size(); ++i){
-    sf::Color c = sf::Color::Black; // FIXME remove and replace with below
-    //sf::Color c = colour_from_uid(planets[i].get_pid()); // TODO FIXME defaults to grey, for unowned. good. waiting for functionality from ben
+    sf::Color c = colour_from_uid(planets[i].get_player()->get_uid()); // defaults to grey, for unowned.
     sf::Shape planet = sf::Shape::Circle(planets[i].get_x(), planets[i].get_y(), planets[i].get_radius(), c, 0, c);
     window.Draw(planet);
   }
