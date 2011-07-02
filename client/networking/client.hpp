@@ -34,10 +34,8 @@ class NetworkingClient
 
     /**
      * @brief initialise and do everything
-     *
-     * @return player identifier number
      */
-    int join();
+    void join();
     
     /**
      *

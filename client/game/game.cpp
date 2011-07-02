@@ -15,8 +15,7 @@ ClientGame::ClientGame(const char *ip, int port) : net(new NetworkingClient(ip, 
 ClientGame::~ClientGame() {}
 
 void ClientGame::set_game(){
-  net->init(this);
-  local_player = new Player(net->join());
+    net->init(this);
 }
 
 void ClientGame::die() {

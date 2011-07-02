@@ -14,7 +14,7 @@ void NetworkingClient::init(ClientGame *client_game)
   game = client_game;
 }
 
-int NetworkingClient::join()
+void NetworkingClient::join()
 {
   if (client.Connect(server_ip, port) != sf::Socket::Done)
   {
@@ -90,6 +90,8 @@ int NetworkingClient::join()
         std::cout << "Adding mothership at " << x << ", " << y << ", id:" << id << std::endl;
         Player *new_player = new Player(uid);
         new_player->set_moship(new Mothership(x, y, id, new_player));
+        if (id == player_id)
+            local_player = new_player;
         ++id;
         game->add_player(new_player);
         game->add_planet(new_player->get_moship());
