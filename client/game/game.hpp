@@ -28,6 +28,11 @@ public:
     void set_game();
 
     /**
+     * Asks the server to terminate by sending a null fleet.
+     */
+    void die();
+
+    /**
      * Send a fleet of the specified amount from the source planet, heading towards a destination planet.
      */
     void launch_fleet(Planet &src, Planet &dest, int timestamp);

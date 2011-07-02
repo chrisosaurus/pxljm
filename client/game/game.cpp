@@ -23,6 +23,10 @@ void ClientGame::set_game(){
   local_player = new Player(net->join());
 }
 
+void ClientGame::die() {
+    net->send_fleet(0);
+}
+
 void ClientGame::launch_fleet(Planet &src, Planet &dest, int timestamp) {
     Fleet *f = src.launch_fleet(dest, timestamp);
     if (!src.get_player())
