@@ -87,6 +87,12 @@ bool NetworkingClient::receive_fleet()
     error = "Error extracting data from Packet";
     throw error;
   }
+  if (timestamp < 0)
+  {
+    std::cout << "Received quit command" << std::endl;
+    client.Disconnect();
+    return true;
+  }
   game->launch_fleet(from_id, to_id, timestamp);
 }
 
