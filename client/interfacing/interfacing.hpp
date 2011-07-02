@@ -22,6 +22,8 @@ class Interfacing{
 
     // main loop
     void main();
+
+    void die();
 };
 
 #endif
