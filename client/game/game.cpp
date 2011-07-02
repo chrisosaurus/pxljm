@@ -3,6 +3,7 @@
 
 #include "game.hpp"
 
+#include "../interfacing/interfacing.hpp"
 #include "../networking/client.hpp"
 #include "fleet.hpp"
 #include "planet.hpp"
@@ -50,4 +51,8 @@ Planet *ClientGame::find_nearest_planet(int x, int y, int limit) {
             p = *it;
     }
     return p;
+}
+
+void ClientGame::logic(Interfacing &i) {
+    i.draw(planets, players, fleets);
 }

@@ -4,9 +4,10 @@
 
 
 class Client;
+class Fleet;
+class Interfacing;
 class Planet;
 class Player;
-class Fleet;
 
 class ClientGame {
     std::vector<Planet *> planets;
@@ -36,6 +37,8 @@ public:
      * If limit is specified, do not return a Planet further away than the squareroot of this.
      */
     Planet *find_nearest_planet(int x, int y, int limit = 0);
+
+    void logic(Interfacing &in);
 };
 
 #endif
