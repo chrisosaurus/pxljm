@@ -26,7 +26,7 @@ public:
   
   void addAcceleration(FVector acc, int dt);
   
-  void iterate(int dt);
+  void update(int dt, int fleetX, int fleetY);
 };
 
 #endif

@@ -37,12 +37,13 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   screenX = get_x(t);
   screenY = get_y(t);
   
-  for (int i=0; i<ships.size(); ++i) {
-    
-  }
-  
   float p = (float)(t-startTime)/(float)(endTime-startTime);  // p: percent there
   if (p<0.f) return -1;
   if (p>1.f) return +1;
-  else return 0;
+  
+  for (int i=0; i<ships.size(); ++i) {
+    ships[i]->update(frameTime, screenX, screenY);
+  }
+  
+  return 0;
 }

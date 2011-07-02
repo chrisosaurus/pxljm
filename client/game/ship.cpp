@@ -7,10 +7,10 @@ void Ship::addAcceleration(FVector acc, int dt) {
   
   temp *= dt;
   dV += temp;
-  //dV += acc * dt;
+  //dV += acc * dt; // TODO: make this possible
 }
 
-void Ship::iterate(int dt) {
+void Ship::update(int dt, int fleetX, int fleetY) {
   vel += dV;
   vel /= 1.1;
   FVector temp = vel;
@@ -19,8 +19,12 @@ void Ship::iterate(int dt) {
   //pos += vel * dt; 
   dV.x = 0;
   dV.y = 0;
+  screenX = pos.x + fleetX;
+  screenY = pos.y + fleetY;
 }
 
 Ship::Ship(int offsetX, int offsetY) : x(offsetX), y(offsetY) {
+  pos.x = x;
+  pos.y = y;
   std::cout << "Ship constructed " << std::endl;
 }
