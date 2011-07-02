@@ -6,9 +6,13 @@
 #include "../networking/client.hpp"
 #include "fleet.hpp"
 #include "planet.hpp"
+#include "player.hpp"
 
 
 ClientGame::ClientGame(const char *ip, int port) : net(new Client(ip, port))  {
+    local_player = new Player(net->join());
+    
+    
     
 }
 
