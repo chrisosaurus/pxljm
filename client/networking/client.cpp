@@ -100,7 +100,6 @@ void NetworkingClient::join()
   }
 
   client.SetBlocking(false);
-  return player_id;
 }
 
 bool NetworkingClient::receive_packet()

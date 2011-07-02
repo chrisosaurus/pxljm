@@ -16,6 +16,7 @@ ClientGame::~ClientGame() {}
 
 void ClientGame::set_game(){
     net->init(this);
+    net->join();
 }
 
 void ClientGame::die() {
