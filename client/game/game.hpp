@@ -26,8 +26,8 @@ public:
      * Send a fleet of the specified amount from the source planet, heading towards a destination planet.
      */
     void launch_fleet(Planet &src, Planet &dest);
-
     void remove_fleet(Fleet *f);
+    void launch_fleet(int pid1, int pid2);
     
     /**
      * Find a planet based on id

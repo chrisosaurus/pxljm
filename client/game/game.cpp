@@ -33,6 +33,10 @@ void ClientGame::remove_fleet(Fleet *f) {
         fleets.remove(f);
 }
 
+void ClientGame::launch_fleet(int pid1, int pid2){
+  launch_fleet( planet_from_id(pid1), planet_from_id(pid2) );
+}
+
 struct pid : std::binary_function <Planet *, int, bool> {
     bool operator () (const Planet * const p, int id) const {
         return p->get_id() == id;
