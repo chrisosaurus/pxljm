@@ -3,7 +3,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "mapper.hpp" // function to create maps
 
 Server::Server(unsigned short listening_port, int num_clients)
   : port(listening_port),
@@ -138,19 +137,24 @@ bool Server::run()
         sf::TcpSocket *client_sending = client_list[i];
         if (selector.IsReady(*client_sending))
         {
-          sf::Packet fleet_to_receive;
-          int from_id, to_id, timestamp;
-          client_sending->Receive(fleet_to_receive);
-          if (fleet_to_receive >> from_id >> to_id >> timestamp)
+          sf::Packet packet_to_receive, packet_to_forward;
+          int packet_id, from_id, to_id, timestamp;
+          client_sending->Receive(packet_to_receive);
+          packet_to_forward = packet_to_receive;
+          if (packet_to_receive >> packet_id)
           {
-            std::cout << "Got a fleet" << std::endl;
-            if (timestamp < 0)
+            if (packet_id == 2)
             {
-              std::cout << "It's a quit fleet" << std::endl;
-              selector.Clear();
-              listener.Close();
-              std::cout << "Client quit. Closing server nicely" << std::endl;
-              return true;
+              packet_to_receive >> from_id >> to_id >> timestamp;
+              std::cout << "Got a fleet" << std::endl;
+              if (timestamp < 0)
+              {
+                std::cout << "It's a quit fleet" << std::endl;
+                selector.Clear();
+                listener.Close();
+                std::cout << "Client quit. Closing server nicely" << std::endl;
+                return true;
+              }
             }
           }
           for (int j = 0; j < client_list.size(); ++j)
@@ -159,9 +163,7 @@ bool Server::run()
             {
               continue;
             }
-            fleet_to_receive.Clear();
-            fleet_to_receive << from_id << to_id << timestamp;
-            client_list[j]->Send(fleet_to_receive);
+            client_list[j]->Send(packet_to_forward);
           }
         }
       }
