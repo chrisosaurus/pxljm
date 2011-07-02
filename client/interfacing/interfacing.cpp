@@ -32,7 +32,7 @@ sf::Color Interfacing::colour_from_uid(int uid){
 }
 
 Interfacing::Interfacing(ClientGame& ga, Player *p)
-  : window(sf::VideoMode(800, 600), "awesome title of doom", sf::Style::Fullscreen),
+  : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Fullscreen),
     game(ga) {
       me = p;
       window.SetFramerateLimit(60);
@@ -60,8 +60,9 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
       window.Draw(ship);
     }
   }
-
+  std::cout << "drawing planets:" << std::endl;
   for( int i=0; i<planets.size(); ++i){
+    std::cout << "planet: " << planets[i]->get_x() << ", " << planets[i]->get_y() << ", " << planets[i]->get_radius() << std::endl;
     const Player * p = planets[i]->get_player();
     sf::Color c = colour_from_uid( p ? p->get_uid() : -1 ); // defaults to grey, for unowned.
     sf::Shape planet = sf::Shape::Circle(planets[i]->get_x(), planets[i]->get_y(), planets[i]->get_radius(), c, 0, c);
