@@ -127,7 +127,7 @@ bool Server::run()
             }
             fleet_to_receive.Clear();
             fleet_to_receive << from_id << to_id << timestamp;
-            client_list[j]->Send(fleets_to_receive);
+            client_list[j]->Send(fleet_to_receive);
           }
         }
       }
@@ -141,9 +141,9 @@ void Server::parse_file(const char *fname = "test.map"){
   while( input >> x >> y >> rad >> owner )
   {
     std::cout << "Sending " << x << ", " << y << ", " << rad << std::endl;
-    planet(x,y,rad);
+    planet(x,y,rad,owner);
   }
-  planet(-1,-1,-1);
+  planet(-1,-1,-1, -1);
 }
 
 void Server::planet(int x, int y, int rad, int owner)
