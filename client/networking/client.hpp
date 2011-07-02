@@ -6,10 +6,14 @@
 #include "../game/fleet.hpp"
 #include <SFML/Network.hpp>
 
+class ClientGame;
+
 class Client
 {
   std::string error;
   unsigned short port;
+
+  ClientGame *game;
 
   sf::TcpSocket client;
   sf::IpAddress server_ip;
@@ -22,7 +26,7 @@ class Client
      * @param server_ip_address the external IP of the server.
      * @param server_port the port that the server is listening on.
      */
-    Client(const char *server_ip_address, unsigned short server_port);
+    Client(const char *server_ip_address, unsigned short server_port, ClientGame *client_game);
 
     /**
      * @brief initialise and do everything
