@@ -8,15 +8,17 @@
 #include "mothership.hpp"
 #include "player.hpp"
 
-#define FLEET_SPEED 10  // TODO: figure out the actual fleet speed
+#define FLEET_SPEED 0.05  // 50 pixels per 1000ms
 
 Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, Player &sender)
  : ships(quantity), orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(50), screenX(origin.get_x()), screenY(origin.get_y()) {
 
+  endTime = startTime + hypot(dest.get_x()-orig.get_x(), dest.get_y()-orig.get_y()) / FLEET_SPEED;  // dt = dx/v
+
   for (int i=0; i<ships.size(); ++i) {
     ships.push_back(new Ship(orig.get_x()+rand()%(2*radius)-radius, orig.get_y()+rand()%(2*radius)-radius));
   }
-  std::cout << "Fleet constructed. " << std::endl;
+  std::cout << "Fleet constructed. Owner: player " << owner.get_uid() << std::endl;
 }
 
 
@@ -32,7 +34,10 @@ int Fleet::get_y(int t) {
 
 
 int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
-  float dist = hypot(get_x(gameTime)-((owner.get_moship())->get_x()), get_y(gameTime)-(owner.get_moship())->get_y()); // the distance to the "time immume" fleet
+  float dist = hypot( // the distance to the "time immume" fleet
+    get_x(gameTime) - owner.get_moship()->get_x(),
+    get_y(gameTime) - owner.get_moship()->get_y()
+  ); 
   int t = gameTime - (int)(dist/LIGHTSPEED);  // the time of the viewed fleet
   screenX = get_x(t);
   screenY = get_y(t);

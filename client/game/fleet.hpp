@@ -8,7 +8,6 @@ class Player;
 
 class Fleet {
 public:
-
   std::vector<Ship*> ships;
 
   int startTime; // in millis
