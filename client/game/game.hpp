@@ -1,7 +1,7 @@
 #ifndef CLIENTGAME_H
 #define CLIENTGAME_H
 #include <vector>
-
+#include <map>
 
 class NetworkingClient;
 class Fleet;
@@ -15,6 +15,9 @@ class ClientGame {
     std::vector<Player *> players;
 
     std::vector<Fleet *> fleets;
+
+    /* timestamp -> planet ids {src, dest} */
+    std::multimap<int, std::pair<int, int> > history;
 
     NetworkingClient *net;
 public:

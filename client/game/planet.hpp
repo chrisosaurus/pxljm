@@ -7,16 +7,19 @@ class Planet {
 private:
     const int x;
     const int y;
-    const int radius;
+    const int capacity;
 
     const int id;
 
-    int ships;
+    int last_tick;
+    int last_ships;
 
     Player *owner;
     
+    void set_ship_count();
+
 public:
-    Planet(int vx, int vy, int vradius, int vid);
+    Planet(int vx, int vy, int vcapacity, int vid);
     
     ~Planet();
     
@@ -26,17 +29,15 @@ public:
     
     int get_radius() const;
 
-    int get_ship_count() const;
+    virtual int get_ship_count() const;
 
     int get_id() const;
 
     const Player * const get_player() const;
     
-    virtual void ships_arrival(Player *player, int amount);
+    virtual void ships_arrival(Player *player, int amount, int current_time);
 
-    virtual Fleet *launch_fleet(Planet &dest, int timestamp);
-    
-    virtual void logic();
+    virtual Fleet *launch_fleet(Planet &dest, int launch_time);
 };
 
 #endif
