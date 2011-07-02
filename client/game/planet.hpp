@@ -29,6 +29,8 @@ public:
     int get_ship_count() const;
 
     int get_id() const;
+
+    const Player &get_player() const;
     
     virtual void ships_arrival(Player *player, int amount);
 
