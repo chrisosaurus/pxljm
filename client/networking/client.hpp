@@ -34,7 +34,7 @@ class Client
     /**
      *
      */
-    bool receive_action(Fleet *fleet_received);
+    bool receive_fleet();
     
     /**
      * @brief send new fleet creation to server
