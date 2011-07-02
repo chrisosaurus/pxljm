@@ -56,6 +56,7 @@ int NetworkingClient::join()
       else
       {
         //it's a regular planet, add it
+        std::cout << "Adding  planet at " << x << ", " << y << ", radius: " << radius << ", id: " << id << std::endl;
         game->add_planet(new Planet(x, y, radius, id));
         ++id;
       }
@@ -71,7 +72,7 @@ bool NetworkingClient::receive_fleet()
   sf::Packet received_fleet;
   int from_id, to_id, timestamp;
 
-  if (client.Receive != sf::Socket::Done)
+  if (client.Receive(received_fleet) != sf::Socket::Done)
   {
     return false;
   }
