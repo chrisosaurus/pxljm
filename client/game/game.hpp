@@ -18,7 +18,7 @@ class ClientGame {
 
     NetworkingClient *net;
 public:
-    ClientGame(const char *ip, int port = 45672);
+    ClientGame(const char *ip, int port = 7000);
     
     ~ClientGame();
     
