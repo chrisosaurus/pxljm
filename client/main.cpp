@@ -13,7 +13,7 @@
 #include "interfacing/interfacing.hpp"
 
 // default ip to connect to, could be 127.0.0.1 later. for now link to server
-#define DEFAULTIP "10.1.1.104"
+#define DEFAULTIP "10.1.1.115"
 
 Player *local_player = 0;
 
