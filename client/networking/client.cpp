@@ -16,7 +16,7 @@ int Client::join()
   if (client.Connect(server_ip, port) != sf::Socket::Done)
   {
     error = "Could not connect to server.";
-    return -1;
+    throw error;
   }
   std::cout << "Waiting for ready message" << std::endl;
   sf::Packet ready_message;
@@ -32,7 +32,7 @@ int Client::join()
   else
   {
     std::cout << "Couldn't extract data. Something's gone wrong. It's best if I close now." << std::endl;
-    return -1;
+    throw error;
   }
 
   message = "Ready";
