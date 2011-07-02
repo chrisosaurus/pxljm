@@ -20,7 +20,7 @@ ClientGame::ClientGame(const char *ip, int port) : net(new NetworkingClient(ip, 
 ClientGame::~ClientGame() {}
 
 void ClientGame::set_game(){
-  net.init(this);
+  net->init(this);
 }
 
 void ClientGame::launch_fleet(Planet &src, Planet &dest, int timestamp) {
