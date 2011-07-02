@@ -3,7 +3,7 @@
 #include <vector>
 
 
-class Client;
+class NetworkingClient;
 class Fleet;
 class Interfacing;
 class Planet;
@@ -16,7 +16,7 @@ class ClientGame {
 
     std::vector<Fleet *> fleets;
 
-    Client *net;
+    NetworkingClient *net;
 public:
     ClientGame(const char *ip, int port = 45672);
     
@@ -25,9 +25,9 @@ public:
     /**
      * Send a fleet of the specified amount from the source planet, heading towards a destination planet.
      */
-    void launch_fleet(Planet &src, Planet &dest);
+    void launch_fleet(Planet &src, Planet &dest, int timestamp);
     void remove_fleet(Fleet *f);
-    void launch_fleet(int pid1, int pid2);
+    void launch_fleet(int pid1, int pid2, int timestamp);
 
     void add_planet(Planet *p);
     

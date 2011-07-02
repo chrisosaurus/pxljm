@@ -34,7 +34,7 @@ public:
     
     virtual void ships_arrival(Player *player, int amount);
 
-    virtual Fleet *launch_fleet(Planet &dest);
+    virtual Fleet *launch_fleet(Planet &dest, int timestamp);
     
     virtual void logic();
 };

@@ -32,9 +32,9 @@ void Planet::ships_arrival(Player *player, int amount) {
     /* TODO FIXME */
 }
 
-Fleet *Planet::launch_fleet(Planet &dest) {
+Fleet *Planet::launch_fleet(Planet &dest, int timestamp) {
     /* Always send half the available amount. */
-    Fleet *f = new Fleet(ships >> 1, *this, dest, 0 /* *** FIXME FIXME *** */, *owner);
+    Fleet *f = new Fleet(ships >> 1, *this, dest, timestamp, *owner);
     ships -= ships >> 1;
     return f;
 }

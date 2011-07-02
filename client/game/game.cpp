@@ -10,7 +10,7 @@
 #include "player.hpp"
 
 
-ClientGame::ClientGame(const char *ip, int port) : net(new Client(ip, port))  {
+ClientGame::ClientGame(const char *ip, int port) : net(new NetworkingClient(ip, port, 0/*FIXME with game*/))  {
     local_player = new Player(net->join());
     
     
@@ -19,11 +19,15 @@ ClientGame::ClientGame(const char *ip, int port) : net(new Client(ip, port))  {
 
 ClientGame::~ClientGame() {}
 
-void ClientGame::launch_fleet(Planet &src, Planet &dest) {
-    Fleet *f = src.launch_fleet(dest);
+void ClientGame::launch_fleet(Planet &src, Planet &dest, int timestamp) {
+    Fleet *f = src.launch_fleet(dest, timestamp);
     if (&f->owner == src.get_player())
         net->send_fleet(f);
     fleets.push_back(f);
+}
+
+void ClientGame::launch_fleet(int pid1, int pid2, int timestamp){
+  launch_fleet(*planet_from_id(pid1), *planet_from_id(pid2), timestamp);
 }
 
 void ClientGame::remove_fleet(Fleet *f) {
@@ -35,10 +39,6 @@ void ClientGame::remove_fleet(Fleet *f) {
 
 void ClientGame::add_planet(Planet *p) {
     planets.push_back(p);
-}
-
-void ClientGame::launch_fleet(int pid1, int pid2){
-  launch_fleet(*planet_from_id(pid1), *planet_from_id(pid2));
 }
 
 struct pid : std::binary_function <Planet *, int, bool> {
