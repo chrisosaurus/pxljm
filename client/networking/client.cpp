@@ -78,7 +78,7 @@ void NetworkingClient::join()
     client.Receive(player);
     if (player >> x >> y >> uid)
     {
-      if (uid < 0)
+      if (x < 0)
       {
         // It's a player end packet, stop receiving players
         player_end = true;
