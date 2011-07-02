@@ -88,5 +88,5 @@ Planet *ClientGame::find_nearest_planet(int x, int y, int limit) {
 
 void ClientGame::logic(Interfacing &i) {
   net->receive_packet();
-  i.draw(planets, players, fleets);
+  i.draw(planets, fleets);
 }
