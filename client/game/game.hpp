@@ -41,6 +41,8 @@ public:
 
     void add_planet(Planet *p);
     
+    void add_player(Player *p);
+    
     /**
      * Find a planet based on id
      */

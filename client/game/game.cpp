@@ -10,11 +10,7 @@
 #include "player.hpp"
 
 
-ClientGame::ClientGame(const char *ip, int port) : net(new NetworkingClient(ip, port))  {
-    
-    
-    
-}
+ClientGame::ClientGame(const char *ip, int port) : net(new NetworkingClient(ip, port))  {}
 
 ClientGame::~ClientGame() {}
 
@@ -52,7 +48,11 @@ void ClientGame::remove_fleet(Fleet *f) {
 }
 
 void ClientGame::add_planet(Planet *p) {
-  planets.push_back(p);
+    planets.push_back(p);
+}
+
+void ClientGame::add_player(Player *p) {
+    players.push_back(p);
 }
 
 struct pid : std::binary_function <Planet *, int, bool> {
