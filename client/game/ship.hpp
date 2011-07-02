@@ -11,11 +11,9 @@ class Ship {
 private:
   FVector dV;
   FVector vel;
-  FVector pos;
 public:
   // only to be accessed by Fleet
-  int x;
-  int y;
+  FVector pos;
 
   // to be accessed by draw
   int screenX;

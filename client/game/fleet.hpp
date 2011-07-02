@@ -1,12 +1,16 @@
 #ifndef FLEET_H
 #define FLEET_H
 #include <vector>
+#include "fvector.hpp"
 
 class Planet;
 class Ship;
 class Player;
 
 class Fleet {
+private:
+  FVector attractCentre(Ship* s);
+  FVector repellFromShips(Ship* s, int myIndex);
 public:
   std::vector<Ship*> ships;
 
@@ -26,7 +30,7 @@ public:
 
   int get_x(int t);
   int get_y(int t);
-
+  
 
   /*
   returns -1 if gametime is before startTime

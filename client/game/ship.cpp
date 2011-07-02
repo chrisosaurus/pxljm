@@ -23,8 +23,8 @@ void Ship::update(int dt, int fleetX, int fleetY) {
   screenY = pos.y + fleetY;
 }
 
-Ship::Ship(int offsetX, int offsetY) : x(offsetX), y(offsetY) {
-  pos.x = x;
-  pos.y = y;
+Ship::Ship(int offsetX, int offsetY) {
+  pos.x = offsetX;
+  pos.y = offsetY;
   std::cout << "Ship constructed " << std::endl;
 }

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
-#include "fvector.hpp"
 #include "ship.hpp"
 #include "fleet.hpp"
 #include "planet.hpp"
@@ -32,7 +31,32 @@ int Fleet::get_y(int t) {
   return (int)(orig.get_y()*(1-p) + dest.get_y()* p);
 }
 
+FVector Fleet::attractCentre(Ship* s) {
+  FVector acc = s->pos;
+  acc.norm();  // direction
+  acc *= (-0.0001*acc.mag()); // magnitude    
+  return acc;
+}
 
+FVector Fleet::repellFromShips(Ship* s, int myIndex) {
+  FVector acc;
+  acc.x = 0;
+  acc.y = 0;
+  for (int i=0; i<ships.size(); ++i) {
+    if (i != myIndex) { // don't repell yourself
+      FVector subtract = s->pos;
+      subtract -= ships[i]->pos;
+      FVector repuls = subtract;
+      repuls.norm();  // direction
+      repuls *= pow(s->pos.dist(ships[i]->pos), -3);  // magnitude
+      acc += repuls;
+    }
+  }
+  acc *= 1.0;
+  acc.limit(.001);
+  return acc;
+}
+  
 int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   float dist = hypot( // the distance to the "time immume" fleet
     get_x(gameTime) - owner.get_moship()->get_x(),
@@ -45,6 +69,11 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   float p = (float)(t-startTime)/(float)(endTime-startTime);  // p: percent there
   if (p<0.f) return -1;
   if (p>1.f) return +1;
+  
+  for (int i=0; i<ships.size(); ++i) {
+    ships[i]->addAcceleration(repellFromShips(ships[i], i), frameTime);
+    ships[i]->addAcceleration(attractCentre(ships[i]), frameTime);
+  }
   
   for (int i=0; i<ships.size(); ++i) {
     ships[i]->update(frameTime, screenX, screenY);
