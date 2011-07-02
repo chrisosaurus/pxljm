@@ -136,9 +136,9 @@ bool Server::run()
 }
 
 void Server::parse_file(const char *fname = "test.map"){
-  int x,y,rad;
+  int x,y,rad,owner;
   std::ifstream input(fname);
-  while( input >> x >> y >> rad )
+  while( input >> x >> y >> rad >> owner )
   {
     std::cout << "Sending " << x << ", " << y << ", " << rad << std::endl;
     planet(x,y,rad);
@@ -146,12 +146,12 @@ void Server::parse_file(const char *fname = "test.map"){
   planet(-1,-1,-1);
 }
 
-void Server::planet(int x, int y, int rad)
+void Server::planet(int x, int y, int rad, int owner)
 {
   sf::Packet planet_to_send;
   for (int i = 0; i < client_list.size(); ++i)
   {
-    planet_to_send << x << y << rad;
+    planet_to_send << x << y << rad << owner;
     client_list[i]->Send(planet_to_send);
     planet_to_send.Clear();
   }
