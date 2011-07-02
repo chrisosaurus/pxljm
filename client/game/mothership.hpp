@@ -2,8 +2,8 @@
 #define MOTHERSHIP_H
 
 #include <SFML/Graphics.hpp>
+#include "planet.hpp"
 
-class Planet;
 
 class Mothership : public Planet {
     int rotation;

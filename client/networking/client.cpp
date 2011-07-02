@@ -2,7 +2,6 @@
 #include "../game/game.hpp"
 #include "../game/planet.hpp"
 #include "../game/player.hpp"
-#include "../game/mothership.hpp"
 
 NetworkingClient::NetworkingClient(const char *server_ip_address, unsigned short server_port)
   : server_ip(server_ip_address),
@@ -88,9 +87,10 @@ int NetworkingClient::join()
       else
       {
         // it's a regular player, add it
-        std::cout << "Adding mothership at " << x << ", " << y << ", uid:" << uid << std::endl;
+        std::cout << "Adding mothership at " << x << ", " << y << ", id:" << id << std::endl;
         Player *new_player = new Player(uid);
-        new_player->set_moship(new Mothership(x, y));
+        new_player->set_moship(new Mothership(x, y, id));
+        ++id;
         game->add_player(new_player);
       }
     }
@@ -140,7 +140,6 @@ bool NetworkingClient::send_fleet(Fleet *fleet)
 {
   sf::Packet fleet_to_send;
   int from_id, to_id, timestamp;
-  
   if (fleet)
   {
     std::cout << "Valid fleet" << std::endl;
@@ -155,7 +154,7 @@ bool NetworkingClient::send_fleet(Fleet *fleet)
     to_id = -1;
     timestamp = -1;
   }
-  if (!(fleet_to_send << from_id << to_id << timestamp))
+  if (!(fleet_to_send << 2 << from_id << to_id << timestamp))
   {
     std::cout << "Error putting fleet data into Packet." << std::endl;
     error = "Error putting fleet data into Packet";
@@ -164,3 +163,17 @@ bool NetworkingClient::send_fleet(Fleet *fleet)
   client.Send(fleet_to_send);
   return true;
 }
+
+bool NetworkingClient::send_moship(int moship_id, int timestamp, int x_dest, int y_dest)
+{
+  sf::Packet moship_to_move;
+  int id, time, x, y;
+  moship_to_move << 1 << id << time << x << y;
+
+}
+
+
+
+
+
+

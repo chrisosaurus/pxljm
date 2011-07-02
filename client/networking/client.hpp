@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 #include "../game/fleet.hpp"
+#include "../game/mothership.hpp"
 #include <SFML/Network.hpp>
 
 class ClientGame;
@@ -49,5 +50,7 @@ class NetworkingClient
      * @param fleet_to_send A pointer to the fleet that needs to be sent to the server
      */
     bool send_fleet(Fleet *fleet_to_send);
+
+    bool send_moship(int moship_id, int timestamp, int x_dest, int y_dest);
 };
 #endif
