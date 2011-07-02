@@ -31,8 +31,10 @@ class Client
 
     /**
      * @brief initialise and do everything
+     *
+     * @return player identifier number
      */
-    bool init();
+    int join();
 
     /**
      *

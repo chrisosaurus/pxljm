@@ -11,31 +11,34 @@ std::string Client::get_error()
   return error;
 }
 
-bool Client::init()
+int Client::join()
 {
   if (client.Connect(server_ip, port) != sf::Socket::Done)
   {
     error = "Could not connect to server.";
-    return false;
+    return -1;
   }
   std::cout << "Waiting for ready message" << std::endl;
   sf::Packet ready_message;
   std::string message;
+  int player_id;
+
   client.Receive(ready_message);
-  if ((ready_message >> message) && (message == "Ready"))
+  if ((ready_message >> message >> player_id) && (message == "Ready"))
   {
-    std::cout << "Received ready message. Sending reply." << std::endl;
+    std::cout << "Received ready message. I am player #" << player_id << ". Sending reply." << std::endl;
     ready_message.Clear();
   }
   else
   {
     std::cout << "Couldn't extract data. Something's gone wrong. It's best if I close now." << std::endl;
-    return false;
+    return -1;
   }
 
   message = "Ready";
   ready_message << message;
   client.Send(ready_message);
+  return player_id;
 }
 
 bool send_fleet(Fleet *fleet_to_send)
