@@ -46,7 +46,6 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
   unsigned int frametime = window.GetFrameTime();
   unsigned int gametime = clock.GetElapsedTime(); // TODO to be consistant, is this ok?
   
-  std::cout << "drawing ships" << std::endl;
   // draw ships first
   for( int i=0; i<fleets.size(); ++i){
     sf::Shape ship;
@@ -64,7 +63,6 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
     }
   }
 
-  std::cout << "drawing planets" << std::endl;
   for( int i=0; i<planets.size(); ++i){
     const Player * p = planets[i]->get_player();
     sf::Color c = colour_from_uid( p ? p->get_uid() : 0 ); // defaults to grey, for unowned.
@@ -72,7 +70,6 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Player*> &play
     window.Draw(planet);
   }
 
-  std::cout << "drawing players" << std::endl;
   for( int i=0; i<players.size(); ++i){
     sf::Color c = colour_from_uid(players[i]->get_uid());
     sf::Shape moship;
@@ -121,7 +118,7 @@ void Interfacing::main(){
     //    otherwise:
     //      record a click
     // a right click means: delete the click if it was recorded last frame
-    if(input.IsMouseButtonDown(sf::Mouse::Right)){
+    if(input.IsMouseButtonDown(sf::Mouse::Left)){
       // a left click could be an action
       if( ly > 0){ // omg, DO SOMETHING
         Planet *p = game.find_nearest_planet(lx, ly);
