@@ -10,9 +10,9 @@ void Ship::addAcceleration(FVector acc, int dt) {
   //dV += acc * dt; // TODO: make this possible
 }
 
-void Ship::update(int dt, int fleetX, int fleetY) {
+void Ship::update(int dt, int fleetX, int fleetY, float p) {
   vel += dV;
-  vel /= 1.1;
+  vel *= p;
   FVector temp = vel;
   temp *= dt;
   pos += temp;

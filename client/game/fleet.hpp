@@ -9,8 +9,8 @@ class Player;
 
 class Fleet {
 private:
-  FVector attractCentre(Ship* s);
-  FVector repellFromShips(Ship* s, int myIndex);
+  FVector attractCentre(Ship* s, float p);
+  FVector repellFromShips(Ship* s, int myIndex, float p);
 public:
   std::vector<Ship*> ships;
 

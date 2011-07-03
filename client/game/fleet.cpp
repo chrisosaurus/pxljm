@@ -7,10 +7,10 @@
 #include "mothership.hpp"
 #include "player.hpp"
 
-#define FLEET_SPEED 0.01  // pixels per ms
+#define FLEET_SPEED 0.02  // pixels per ms
 
 Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, Player &sender)
- : orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(50), screenX(origin.get_x()), screenY(origin.get_y()) {
+ : orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(10), screenX(origin.get_x()), screenY(origin.get_y()) {
  
   std::cout << "Fleet starting construcction. Quantity: " << quantity << " Owner: player " << owner.get_uid() << std::endl;
 
@@ -37,14 +37,14 @@ int Fleet::get_y(int t) {
   return (int)(orig.get_y()*(1-p) + dest.get_y()* p);
 }
 
-FVector Fleet::attractCentre(Ship* s) {
+FVector Fleet::attractCentre(Ship* s, float p) {
   FVector acc = s->pos;
   acc.norm();  // direction
-  acc *= (-0.0001*acc.mag()); // magnitude    
+  acc *= (-0.0001*acc.mag()*(2*p+1)); // magnitude    
   return acc;
 }
 
-FVector Fleet::repellFromShips(Ship* s, int myIndex) {
+FVector Fleet::repellFromShips(Ship* s, int myIndex, float p) {
   FVector acc;
   acc.x = 0;
   acc.y = 0;
@@ -58,13 +58,13 @@ FVector Fleet::repellFromShips(Ship* s, int myIndex) {
       acc += repuls;
     }
   }
-  acc *= 1.0;
-  acc.limit(0.0001);
+  acc *= 1.0-p;
+  acc.limit(0.001);
   return acc;
 }
   
+
 int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
-  
   
   float dist = hypot( // the distance to the "time immume" fleet
     get_x(gameTime) - owner.get_moship()->get_x(),
@@ -79,22 +79,22 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   float p = (float)(t-startTime)/(float)(endTime-startTime);  // p: percent there
   if (p<0.f) {std::cout << "Fleet before launch time. Owner: player " << owner.get_uid() << std::endl; return -1; }
   if (p>1.f) {std::cout << "Fleet has arrived. Owner: player " << owner.get_uid() << std::endl; return endTime; }
-  std::cout << "Fleet travelling. Owner: player " << owner.get_uid() << "percent done: " << p * 100.0 << std::endl;
+  //std::cout << "Fleet travelling. Owner: player " << owner.get_uid() << "percent done: " << p * 100.0 << std::endl;
   
   //std::cout << "calculating ships: ";
   for (int i=0; i<ships.size(); ++i) {
     //std::cout << i << " ";
-    ships[i]->addAcceleration(repellFromShips(ships[i], i), frameTime);
-    ships[i]->addAcceleration(attractCentre(ships[i]), frameTime);
+    ships[i]->addAcceleration(repellFromShips(ships[i], i, p), frameTime);
+    ships[i]->addAcceleration(attractCentre(ships[i], p), frameTime);
   }
-  std::cout << std::endl;
+  //std::cout << std::endl;
   
   //std::cout << "updating ships: ";
   for (int i=0; i<ships.size(); ++i) {
     //std::cout << i << " ";
-    ships[i]->update(frameTime, screenX, screenY);
+    ships[i]->update(frameTime, screenX, screenY, p);
   }
-  std::cout << std::endl;
+  //std::cout << std::endl;
   
   //std::cout << "Fleet end travel calculation. Owner: player " << owner.get_uid() << std::endl;
   return 0;
