@@ -59,14 +59,14 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
       deletemes.push_back(fleets[i]);
       continue;
     }
-    std::cout << std::endl << std::endl << " drawing a fleet " << fleet.screenX << ", " << fleet.screenY << std::endl;
+    //std::cout << std::endl << std::endl << " drawing a fleet " << fleet.screenX << ", " << fleet.screenY << std::endl;
     for( int j=0; j<fleet.ships.size(); ++j){
 #if MINDFUCK
       sf::Shape ship;
 #endif
       Ship * s = fleet.ships[j];
       if(!s) continue;
-      std::cout << "drawing a shippity doo daa " << s->screenX << "," << s->screenY << " : " << s<< std::endl;
+      //std::cout << "drawing a shippity doo daa " << s->screenX << "," << s->screenY << " : " << s<< std::endl;
       ship.AddPoint(s->screenX+1, s->screenY,   c, c);
       ship.AddPoint(s->screenX-3, s->screenY-2, c, c);
       ship.AddPoint(s->screenX-3, s->screenY+2, c, c);
