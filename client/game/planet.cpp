@@ -3,7 +3,7 @@
 
 #include "planet.hpp"
 
-Planet::Planet(int vx, int vy, int vcapacity, int vid) : x(vx), y(vy), capacity(vcapacity), id(vid), last_ships(vcapacty >> 7), last_tick(0), owner(0) { }
+Planet::Planet(int vx, int vy, int vcapacity, int vid) : x(vx), y(vy), capacity(vcapacity), id(vid), last_ships(vcapacity >> 7), last_tick(0), owner(0) { }
 
 Planet::~Planet() {}
 
