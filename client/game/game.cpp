@@ -40,7 +40,8 @@ void ClientGame::launch_fleet(int pid1, int pid2, int timestamp){
   launch_fleet(*planet_from_id(pid1), *planet_from_id(pid2), timestamp);
 }
 
-void ClientGame::remove_fleet(Fleet *f) {
+void ClientGame::remove_fleet(Fleet *f, int timestamp) {
+    f->dest.ships_arrival(&f->owner, int(f->ships.size()), timestamp);
     /* This should really use a set */
     std::vector<Fleet *>::iterator it = std::find(fleets.begin(), fleets.end(), f);
     if (it != fleets.end())
