@@ -20,6 +20,9 @@ public:
   int screenX;
   int screenY;
   int radius;
+  
+  float rot
+  FVector vel;
 
   Planet &orig;  // origin
   Planet &dest;  // destination

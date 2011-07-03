@@ -15,6 +15,10 @@ Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, 
   std::cout << "Fleet starting construcction. Quantity: " << quantity << " Owner: player " << owner.get_uid() << std::endl;
 
   endTime = startTime + hypot(dest.get_x()-orig.get_x(), dest.get_y()-orig.get_y()) / FLEET_SPEED;  // dt = dx/v
+  rot = atan2(dest.get_y()-orig.get_y(), dest.get_y()-orig.get_y());
+  vel.x = FLEET_SPEED * sin(rot);
+  vel.y = FLEET_SPEED * cos(rot);
+  
 
   for (int i=0; i<quantity; ++i) {
     ships.push_back(new Ship(rand()%(2*radius)-radius, rand()%(2*radius)-radius));
