@@ -4,7 +4,7 @@
 #include <iostream>
 #include "fvector.hpp"
 
-#define LIGHTSPEED 9001
+#define LIGHTSPEED 9
 
 
 class Ship {
