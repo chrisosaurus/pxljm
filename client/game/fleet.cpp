@@ -10,14 +10,14 @@
 #define FLEET_SPEED 0.01  // pixels per ms
 
 Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, Player &sender)
- : orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(10), screenX(origin.get_x()), screenY(origin.get_y()) {
+ : orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(50), screenX(origin.get_x()), screenY(origin.get_y()) {
  
   std::cout << "Fleet starting construcction. Quantity: " << quantity << " Owner: player " << owner.get_uid() << std::endl;
 
   endTime = startTime + hypot(dest.get_x()-orig.get_x(), dest.get_y()-orig.get_y()) / FLEET_SPEED;  // dt = dx/v
 
   for (int i=0; i<quantity; ++i) {
-    ships.push_back(new Ship(orig.get_x()+rand()%(2*radius)-radius, orig.get_y()+rand()%(2*radius)-radius));
+    ships.push_back(new Ship(rand()%(2*radius)-radius, rand()%(2*radius)-radius));
   }
   std::cout << "Fleet constructed. Owner: player " << owner.get_uid() << std::endl;
 }
@@ -55,7 +55,7 @@ FVector Fleet::repellFromShips(Ship* s, int myIndex) {
     }
   }
   acc *= 1.0;
-  acc.limit(.00001);
+  acc.limit(0.0001);
   return acc;
 }
   
@@ -80,7 +80,7 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   //std::cout << "calculating ships: ";
   for (int i=0; i<ships.size(); ++i) {
     //std::cout << i << " ";
-    //ships[i]->addAcceleration(repellFromShips(ships[i], i), frameTime);
+    ships[i]->addAcceleration(repellFromShips(ships[i], i), frameTime);
     ships[i]->addAcceleration(attractCentre(ships[i]), frameTime);
   }
   std::cout << std::endl;
