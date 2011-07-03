@@ -127,7 +127,7 @@ bool NetworkingClient::receive_packet()
   else if(packet_id == 2)
   {
     // fleet
-    std::cout << "Fleet Packet" << std::endl;
+    //std::cout << "Fleet Packet" << std::endl;
     int from_id, to_id, timestamp;
 
     if (!(received_fleet >> from_id >> to_id >> timestamp))
@@ -152,7 +152,6 @@ bool NetworkingClient::send_fleet(Fleet *fleet)
   int from_id, to_id, timestamp;
   if (fleet)
   {
-    std::cout << "Valid fleet" << std::endl;
     from_id = fleet->orig.get_id();
     to_id = fleet->dest.get_id();
     timestamp = fleet->startTime;
@@ -181,9 +180,3 @@ bool NetworkingClient::send_moship(int moship_id, int timestamp, int x_dest, int
   moship_to_move << 1 << id << time << x << y;
 
 }
-
-
-
-
-
-
