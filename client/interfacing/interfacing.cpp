@@ -53,6 +53,7 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
   unsigned int gametime = clock.GetElapsedTime(); // TODO to be consistant, is this ok?
   
   std::vector<Fleet*> deletemes;
+  std::vector<int> endtimes;
 
   // draw ships first
   for( int i=0; i<fleets.size(); ++i){
@@ -63,6 +64,7 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
     //window.Draw(sf::Shape::Circle(fleet.screenX, fleet.screenY, 20, sf::Color::Red)); // TODO debugging
     if(del > 0){
       deletemes.push_back(fleets[i]);
+      endtimes.push_back(del);
       continue;
     }
     //std::cout << std::endl << std::endl << " drawing a fleet " << fleet.screenX << ", " << fleet.screenY << std::endl;
@@ -85,7 +87,7 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
   }
 
   for( int i=0; i<deletemes.size(); ++i)
-    game.remove_fleet(deletemes[i], gametime);
+    game.remove_fleet(deletemes[i], endtimes[i]);
 
   for( int i=0; i<planets.size(); ++i) {
     const Player * p = planets[i]->get_player();
