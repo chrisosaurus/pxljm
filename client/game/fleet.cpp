@@ -10,7 +10,7 @@
 #define FLEET_SPEED 0.01  // pixels per ms
 
 Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, Player &sender)
- : orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(50), screenX(origin.get_x()), screenY(origin.get_y()) {
+ : orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(10), screenX(origin.get_x()), screenY(origin.get_y()) {
  
   std::cout << "Fleet starting construcction. Quantity: " << quantity << " Owner: player " << owner.get_uid() << std::endl;
 
