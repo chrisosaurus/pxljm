@@ -50,8 +50,11 @@ void Interfacing::end_game(int player){
   window.Clear();
   window.Draw(bg);
   std::stringstream ss;
-  ss << "Player " << player << " has won!, bow down to him, build statues, etc.";
-  draw_string(ss.str(), 1024/2, 600/2);
+  if( player == me->get_uid() )
+    ss << "You've won";
+  else
+    ss << "Player " << player << " has won!, bow down to him, build statues, etc.";
+  draw_string(ss.str(), 300, 600/2);
   window.Display();
 }
 
