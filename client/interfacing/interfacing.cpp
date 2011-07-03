@@ -8,6 +8,8 @@
 
 #define PI 3.14
 
+#define MINDFUCK 1
+
 sf::Color Interfacing::colour_from_uid(int uid){
   switch(uid){
     case 0:
@@ -59,7 +61,9 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
     }
     std::cout << std::endl << std::endl << " drawing a fleet " << fleet.screenX << ", " << fleet.screenY << std::endl;
     for( int j=0; j<fleet.ships.size(); ++j){
+#if MINDFUCK
       sf::Shape ship;
+#endif
       Ship * s = fleet.ships[j];
       if(!s) continue;
       std::cout << "drawing a shippity doo daa " << s->screenX << "," << s->screenY << " : " << s<< std::endl;
