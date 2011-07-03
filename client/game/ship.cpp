@@ -31,5 +31,5 @@ Ship::Ship(int offsetX, int offsetY) {
   screenY = 50;
   dV.x=0; dV.y=0;
   vel.x=0; vel.y=0;
-  std::cout << "Ship constructed " << std::endl;
+  //std::cout << "Ship constructed " << std::endl;
 }
