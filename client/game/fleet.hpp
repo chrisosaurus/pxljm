@@ -21,7 +21,7 @@ public:
   int screenY;
   int radius;
   
-  float rot
+  float rot;
   FVector vel;
 
   Planet &orig;  // origin
