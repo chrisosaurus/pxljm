@@ -69,7 +69,7 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
   }
 
   for( int i=0; i<deletemes.size(); ++i)
-    game.remove_fleet(deletemes[i]);
+    game.remove_fleet(deletemes[i], gametime);
 
   for( int i=0; i<planets.size(); ++i) {
     const Player * p = planets[i]->get_player();
