@@ -6,6 +6,9 @@
 #include "../game/player.hpp"
 #include "interfacing.hpp"
 
+#include <sstream>
+#include <string>
+
 #define PI 3.14
 
 #define MINDFUCK 1
@@ -63,7 +66,7 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
       continue;
     }
     //std::cout << std::endl << std::endl << " drawing a fleet " << fleet.screenX << ", " << fleet.screenY << std::endl;
-    std::cout << "owner of fleet to be drawn : " << fleet.owner.get_uid();
+    //std::cout << "owner of fleet to be drawn : " << fleet.owner.get_uid();
     for( int j=0; j<fleet.ships.size(); ++j){
 #if MINDFUCK
       sf::Shape ship;
@@ -86,6 +89,9 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
 
   for( int i=0; i<planets.size(); ++i) {
     const Player * p = planets[i]->get_player();
+    std::stringstream ss;
+    ss << planets[i]->get_ship_count(gametime);
+    draw_string( ss.str(), planets[i]->get_x(), planets[i]->get_y() );
     planets[i]->draw(window, colour_from_uid(p ? p->get_uid() : -1));
   }
 
@@ -97,7 +103,7 @@ void Interfacing::draw_string(const std::string &val, int x, int y){
   text.SetX(x);
   text.SetY(y);
   window.Draw(text);
-  window.Display(); // TODO possibly remove, depending if public or private (if priv, dont need)
+  //window.Display(); // TODO possibly remove, depending if public or private (if priv, dont need)
 }
 
 // THE main loop xD (also most of the glue)

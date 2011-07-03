@@ -12,15 +12,13 @@ class Interfacing{
     sf::Color colour_from_uid(int uid);
     sf::Sprite bg;
     sf::Image bgimage;
+    void draw_string(const std::string &val, int x, int y);
   public:
     // this is a constructor, herpa derpety derp
     Interfacing(ClientGame& ga, Player *p);
 
-    // draw everything (planets, fleets)
-    void draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleets);
 
-    // we won't be using this much, maybe it will be private
-    void draw_string(const std::string &val, int x, int y);
+    void draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleets);
 
     // main loop
     void main();
