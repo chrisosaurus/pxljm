@@ -3,7 +3,7 @@
 
 #include "planet.hpp"
 
-Planet::Planet(int vx, int vy, int vcapacity, int vid) : x(vx), y(vy), capacity(vcapacity), id(vid), last_ships(0), last_tick(0), owner(0) { }
+Planet::Planet(int vx, int vy, int vcapacity, int vid) : x(vx), y(vy), capacity(vcapacity), id(vid), last_ships(vcapacty >> 7), last_tick(0), owner(0) { }
 
 Planet::~Planet() {}
 
@@ -49,7 +49,7 @@ Fleet *Planet::launch_fleet(Planet &dest, int launch_time) {
     /* Always send half the available amount. */
     int ships = get_ship_count(launch_time);
     Fleet *f = new Fleet(ships >> 1, *this, dest, launch_time, *owner);
-    set_ship_count(launch_time, ships - ships >> 1);
+    set_ship_count(launch_time, ships - (ships >> 1));
     return f;
 }
 
