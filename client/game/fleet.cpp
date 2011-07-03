@@ -12,7 +12,7 @@
 Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, Player &sender)
  : orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(10), screenX(origin.get_x()), screenY(origin.get_y()) {
  
-  std::cout << "Fleet starting construcction. Quantity: " << quantity << " Owner: player " << owner.get_uid() << std::endl;
+  //std::cout << "Fleet starting construcction. Quantity: " << quantity << " Owner: player " << owner.get_uid() << std::endl;
 
   endTime = startTime + hypot(dest.get_x()-orig.get_x(), dest.get_y()-orig.get_y()) / FLEET_SPEED;  // dt = dx/v
   rot = atan2(dest.get_y()-orig.get_y(), dest.get_y()-orig.get_y());
@@ -23,7 +23,7 @@ Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, 
   for (int i=0; i<quantity; ++i) {
     ships.push_back(new Ship(rand()%(2*radius)-radius, rand()%(2*radius)-radius));
   }
-  std::cout << "Fleet constructed. Owner: player " << owner.get_uid() << std::endl;
+  //std::cout << "Fleet constructed. Owner: player " << owner.get_uid() << std::endl;
 }
 
 
@@ -77,8 +77,8 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   
   
   float p = (float)(t-startTime)/(float)(endTime-startTime);  // p: percent there
-  if (p<0.f) {std::cout << "Fleet before launch time. Owner: player " << owner.get_uid() << std::endl; return -1; }
-  if (p>1.f) {std::cout << "Fleet has arrived. Owner: player " << owner.get_uid() << std::endl; return endTime; }
+  if (p<0.f) {/*std::cout << "Fleet before launch time. Owner: player " << owner.get_uid() << std::endl; */return -1; }
+  if (p>1.f) {/*std::cout << "Fleet has arrived. Owner: player " << owner.get_uid() << std::endl; */ return endTime; }
   //std::cout << "Fleet travelling. Owner: player " << owner.get_uid() << "percent done: " << p * 100.0 << std::endl;
   
   //std::cout << "calculating ships: ";
