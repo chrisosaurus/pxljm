@@ -36,12 +36,16 @@ sf::Color Interfacing::colour_from_uid(int uid){
 Interfacing::Interfacing(ClientGame& ga, Player *p)
   : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close),
     game(ga) {
+      sf::Image i;
+      i.LoadFromFile("bg.png");
+      bg.SetImage(i);
       me = p;
       window.SetFramerateLimit(60);
 }
 
 void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleets){
   window.Clear();
+  //window.Draw(bg); // TODO bg all white >.>
 
   unsigned int frametime = window.GetFrameTime();
   unsigned int gametime = clock.GetElapsedTime(); // TODO to be consistant, is this ok?
@@ -60,6 +64,7 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
       continue;
     }
     //std::cout << std::endl << std::endl << " drawing a fleet " << fleet.screenX << ", " << fleet.screenY << std::endl;
+    std::cout << "owner of fleet to be drawn : " << fleet.owner.get_uid();
     for( int j=0; j<fleet.ships.size(); ++j){
 #if MINDFUCK
       sf::Shape ship;
