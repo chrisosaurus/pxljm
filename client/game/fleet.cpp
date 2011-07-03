@@ -41,6 +41,7 @@ FVector Fleet::attractCentre(Ship* s, float p) {
   FVector acc = s->pos;
   acc.norm();  // direction
   acc *= (-0.0001*acc.mag()*(2*p+1)); // magnitude    
+  acc.limit(0.01);
   return acc;
 }
 
