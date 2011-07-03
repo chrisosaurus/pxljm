@@ -7,7 +7,7 @@
 #include "mothership.hpp"
 #include "player.hpp"
 
-#define FLEET_SPEED 0.005  // 50 pixels per 1000ms
+#define FLEET_SPEED 0.01  // pixels per ms
 
 Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, Player &sender)
  : orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(50), screenX(origin.get_x()), screenY(origin.get_y()) {
@@ -55,7 +55,7 @@ FVector Fleet::repellFromShips(Ship* s, int myIndex) {
     }
   }
   acc *= 1.0;
-  acc.limit(.001);
+  acc.limit(.00001);
   return acc;
 }
   
