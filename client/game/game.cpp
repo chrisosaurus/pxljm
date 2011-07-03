@@ -88,7 +88,13 @@ Planet *ClientGame::find_nearest_planet(int x, int y, int limit) {
     return p;
 }
 
+bool eid (const Player * const p) {
+    return !p->check_dead();
+}
+
 void ClientGame::logic(Interfacing &i) {
-  net->receive_packet();
-  i.draw(planets, fleets);
+    net->receive_packet();
+    if (std::count_if(players.begin(), players.end(), eid))
+        i.end_game(*std::find_if(players.begin(), players.end(), eid));
+    i.draw(planets, fleets);
 }
