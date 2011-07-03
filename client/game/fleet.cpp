@@ -7,7 +7,7 @@
 #include "mothership.hpp"
 #include "player.hpp"
 
-#define FLEET_SPEED 0.0005  // 50 pixels per 1000ms
+#define FLEET_SPEED 0.005  // 50 pixels per 1000ms
 
 Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, Player &sender)
  : orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(50), screenX(origin.get_x()), screenY(origin.get_y()) {
@@ -75,7 +75,7 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   float p = (float)(t-startTime)/(float)(endTime-startTime);  // p: percent there
   if (p<0.f) {std::cout << "Fleet before launch time. Owner: player " << owner.get_uid() << std::endl; return -1; }
   if (p>1.f) {std::cout << "Fleet has arrived. Owner: player " << owner.get_uid() << std::endl; return endTime; }
-  std::cout << "Fleet travelling. Owner: player " << owner.get_uid() << std::endl;
+  std::cout << "Fleet travelling. Owner: player " << owner.get_uid() << "percent done: " << p * 100.0 << std::endl;
   
   //std::cout << "calculating ships: ";
   for (int i=0; i<ships.size(); ++i) {
