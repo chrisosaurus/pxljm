@@ -52,18 +52,22 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
     Fleet &fleet = *fleets[i];
     sf::Color c = colour_from_uid(fleet.owner.get_uid());
     int del = fleet.update(me->get_moship()->get_x(), me->get_moship()->get_y(), gametime, frametime);
-    window.Draw(sf::Shape::Circle(fleet.screenX, fleet.screenY, 20, sf::Color::Red)); // TODO debug
+    //window.Draw(sf::Shape::Circle(fleet.screenX, fleet.screenY, 20, sf::Color::Red)); // TODO debugging
     if(del > 0){
       deletemes.push_back(fleets[i]);
       continue;
     }
+    std::cout << std::endl << std::endl << " drawing a fleet " << fleet.screenX << ", " << fleet.screenY << std::endl;
     for( int j=0; j<fleet.ships.size(); ++j){
-      Ship * s = fleet.ships[i];
+      sf::Shape ship;
+      Ship * s = fleet.ships[j];
       if(!s) continue;
+      std::cout << "drawing a shippity doo daa " << s->screenX << "," << s->screenY << " : " << s<< std::endl;
       ship.AddPoint(s->screenX+5, s->screenY,   c, c);
       ship.AddPoint(s->screenX-5, s->screenY-5, c, c);
       ship.AddPoint(s->screenX-5, s->screenY+5, c, c);
-      ship.EnableFill(true);
+      ship.EnableFill(false);
+      ship.SetOutlineThickness(2);
       ship.Rotate(s->rot * PI/180); // oh god, it burns! also: PI is exactly 3
       window.Draw(ship);
     }
