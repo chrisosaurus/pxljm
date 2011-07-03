@@ -7,7 +7,7 @@
 #include "mothership.hpp"
 #include "player.hpp"
 
-#define FLEET_SPEED 0.05  // 50 pixels per 1000ms
+#define FLEET_SPEED 0.0005  // 50 pixels per 1000ms
 
 Fleet::Fleet(int quantity, Planet &origin, Planet &destination, int launchTime, Player &sender)
  : orig(origin), dest(destination), startTime(launchTime), owner(sender), radius(50), screenX(origin.get_x()), screenY(origin.get_y()) {
@@ -92,6 +92,6 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   }
   std::cout << std::endl;
   
-  std::cout << "Fleet end travel calculation. Owner: player " << owner.get_uid() << std::endl;
+  //std::cout << "Fleet end travel calculation. Owner: player " << owner.get_uid() << std::endl;
   return 0;
 }
