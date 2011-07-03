@@ -102,8 +102,8 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
 
 void Interfacing::draw_string(const std::string &val, int x, int y, int offset){
   sf::Text text(val);
-  text.SetX(x);
-  text.SetY(y);
+  text.SetX(x+offset);
+  text.SetY(y+offset);
   window.Draw(text);
   //window.Display(); // TODO possibly remove, depending if public or private (if priv, dont need)
 }
