@@ -19,8 +19,8 @@ void Ship::update(int dt, int fleetX, int fleetY, float p) {
   //pos += vel * dt; 
   dV.x = 0;
   dV.y = 0;
-  screenX = pos.x + fleetX;
-  screenY = pos.y + fleetY;
+  screenX = p*(pos.x) + fleetX;
+  screenY = p*(pos.y) + fleetY;
   
 }
 
