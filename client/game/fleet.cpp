@@ -80,7 +80,7 @@ int Fleet::update(int viewerX, int viewerY, int gameTime, int frameTime) {
   //std::cout << "calculating ships: ";
   for (int i=0; i<ships.size(); ++i) {
     //std::cout << i << " ";
-    ships[i]->addAcceleration(repellFromShips(ships[i], i), frameTime);
+    //ships[i]->addAcceleration(repellFromShips(ships[i], i), frameTime);
     ships[i]->addAcceleration(attractCentre(ships[i]), frameTime);
   }
   std::cout << std::endl;
