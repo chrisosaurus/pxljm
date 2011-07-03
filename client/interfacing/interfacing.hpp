@@ -12,7 +12,7 @@ class Interfacing{
     sf::Color colour_from_uid(int uid);
     sf::Sprite bg;
     sf::Image bgimage;
-    void draw_string(const std::string &val, int x, int y);
+    void draw_string(const std::string &val, int x, int y, int offset=0);
   public:
     // this is a constructor, herpa derpety derp
     Interfacing(ClientGame& ga, Player *p);

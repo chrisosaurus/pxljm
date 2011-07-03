@@ -91,14 +91,16 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
     const Player * p = planets[i]->get_player();
     std::stringstream ss;
     ss << planets[i]->get_ship_count(gametime);
-    draw_string( ss.str(), planets[i]->get_x(), planets[i]->get_y() );
+    draw_string( ss.str(), planets[i]->get_x(), planets[i]->get_y(), planets[i]->get_radius());
     planets[i]->draw(window, colour_from_uid(p ? p->get_uid() : -1));
+    if(planets[i]->get_player()->get_uid() == me->get_uid())
+      window.Draw(sf::Shape::Circle(planets[i]->get_x(), planets[i]->get_y(), planets[i]->get_radius(), colour_from_uid(planets[i]->get_player()->get_uid()), 0, colour_from_uid(planets[i]->get_player()->get_uid())));
   }
 
   window.Display();
 }
 
-void Interfacing::draw_string(const std::string &val, int x, int y){
+void Interfacing::draw_string(const std::string &val, int x, int y, int offset){
   sf::Text text(val);
   text.SetX(x);
   text.SetY(y);
