@@ -53,7 +53,7 @@ void Interfacing::end_game(int player){
   if( player == me->get_uid() )
     ss << "You've won";
   else
-    ss << "Player " << player << " has won!, bow down to him, build statues, etc.";
+    ss << "Player " << player << " has won!, bow down to him";
   draw_string(ss.str(), 300, 600/2);
   window.Display();
 }
