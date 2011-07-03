@@ -14,7 +14,7 @@ public:
     ~Mothership();
     int get_radius() const { return 30; }
     int get_rotation() const { return rotation; }
-
+    void ships_arrival(Player *player, int amount, int current_time);
     void draw(sf::RenderWindow &window, const sf::Color &c) const;
 };
 

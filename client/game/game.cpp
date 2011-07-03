@@ -24,9 +24,9 @@ void ClientGame::die() {
 }
 
 void ClientGame::launch_fleet(Planet &src, Planet &dest, int timestamp) {
-    Fleet *f = src.launch_fleet(dest, timestamp);
-    if (!src.get_player())
+    if (!src.get_player() || src.get_player()->check_dead())
         return;
+    Fleet *f = src.launch_fleet(dest, timestamp);
     if (&f->owner == local_player)
         net->send_fleet(f);
     fleets.push_back(f);
@@ -37,11 +37,12 @@ void ClientGame::launch_fleet(Planet &src, Planet &dest, int timestamp) {
 }
 
 void ClientGame::launch_fleet(int pid1, int pid2, int timestamp){
-  launch_fleet(*planet_from_id(pid1), *planet_from_id(pid2), timestamp);
+    launch_fleet(*planet_from_id(pid1), *planet_from_id(pid2), timestamp);
 }
 
 void ClientGame::remove_fleet(Fleet *f, int timestamp) {
-    f->dest.ships_arrival(&f->owner, int(f->ships.size()), timestamp);
+    if (!f->owner.check_dead())
+        f->dest.ships_arrival(&f->owner, int(f->ships.size()), timestamp);
     /* This should really use a set */
     std::vector<Fleet *>::iterator it = std::find(fleets.begin(), fleets.end(), f);
     if (it != fleets.end())
