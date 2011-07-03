@@ -60,7 +60,7 @@ void generate_map(const char *fname = "generated.map", int maxPlanets=10, int av
     out << planets[i].x << " "
         << planets[i].y << " "
         << planets[i].r << " "
-        << "8" << std::endl;
+        << std::endl;
   }
   out.close();
 }

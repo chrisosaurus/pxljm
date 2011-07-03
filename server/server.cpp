@@ -62,7 +62,7 @@ bool Server::run()
       }
     }
   }
-  std::cout << "All clients have connected. Sending ready query..." << std::endl;
+  std::cout << "All clients have connected. Sending ready queries..." << std::endl;
 
   sf::Packet ready_message;
   std::string message = "Ready";
@@ -70,7 +70,7 @@ bool Server::run()
 
   for (int i = 0; i < client_list.size(); ++i)
   {
-    std::cout << client_list.size() << ", " << i << std::endl;
+    std::cout <<  "Sending query to client " << i << std::endl;
     ready_message << message << i;
     client_list[i]->Send(ready_message);
     ready_message.Clear();
@@ -98,7 +98,7 @@ bool Server::run()
     }
   }
 
-
+  //generate_map("new.map", 7, 10);
   // Send planets
   parse_planet_file("test.map");
 
@@ -109,8 +109,8 @@ bool Server::run()
     // send all players 
     int x, y;
     // FIXME hard-coded mothership coords
-    x = 500 + i*10;
-    y = 400 - i*5;
+    x = 500 - i*100;
+    y = 400 - i*50;
     player.Clear();
     player << x << y << i;
     
@@ -132,7 +132,7 @@ bool Server::run()
   {
     if (selector.Wait())
     {
-      std::cout << "Yay got a packet!!" << std::endl;
+      //std::cout << "Yay got a packet!!" << std::endl;
       
       //if someone else tries to connect, actively kick them
       if (selector.IsReady(listener))
@@ -171,6 +171,7 @@ bool Server::run()
           {
             if (client_list[j] == client_sending)
             {
+              //std::cout << "Skipping player" << j << " who is player " << i << std::endl;
               continue;
             }
             client_list[j]->Send(packet_to_forward);
