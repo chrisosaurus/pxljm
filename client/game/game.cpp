@@ -94,7 +94,7 @@ bool eid (const Player * const p) {
 
 void ClientGame::logic(Interfacing &i) {
     net->receive_packet();
-    if (std::count_if(players.begin(), players.end(), eid))
+    if (std::count_if(players.begin(), players.end(), eid) == 1)
         i.end_game((*std::find_if(players.begin(), players.end(), eid))->get_uid());
     i.draw(planets, fleets);
 }
