@@ -27,7 +27,7 @@ void ClientGame::launch_fleet(Planet &src, Planet &dest, int timestamp) {
     Fleet *f = src.launch_fleet(dest, timestamp);
     if (!src.get_player())
         return;
-    if (&f->owner == src.get_player())
+    if (&f->owner == local_player)
         net->send_fleet(f);
     fleets.push_back(f);
     std::multimap<int, std::pair<int, int> >::iterator it = history.insert(history.empty() ? history.begin() : --history.end(), std::make_pair(timestamp, std::make_pair(src.get_id(), dest.get_id()))); /* Should almost always be at the end (Race conditions otherwise, whee) */
