@@ -80,7 +80,8 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
       deletemes.push_back(fleets[i]);
       endtimes.push_back(del);
       continue;
-    }
+    } else if ( del < 0 )
+      continue;
     //std::cout << std::endl << std::endl << " drawing a fleet " << fleet.screenX << ", " << fleet.screenY << std::endl;
     //std::cout << "owner of fleet to be drawn : " << fleet.owner.get_uid();
     for( int j=0; j<fleet.ships.size(); ++j){
