@@ -22,7 +22,7 @@ void Planet::set_ship_count(int current_time, int ship_count) {
 }
 
 int Planet::get_ship_count(int current_time) const {
-    if (current_time == last_tick)
+    if (!owner || current_time == last_tick)
         return last_ships;
     int ships = last_ships + (current_time - last_tick >> 7);
     if (ships > capacity)
