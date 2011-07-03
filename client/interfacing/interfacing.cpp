@@ -59,6 +59,7 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
     }
     for( int j=0; j<fleet.ships.size(); ++j){
       Ship * s = fleet.ships[i];
+      if(!s) continue;
       ship.AddPoint(s->screenX+5, s->screenY,   c, c);
       ship.AddPoint(s->screenX-5, s->screenY-5, c, c);
       ship.AddPoint(s->screenX-5, s->screenY+5, c, c);
