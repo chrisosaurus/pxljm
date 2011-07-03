@@ -53,8 +53,10 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
     sf::Color c = colour_from_uid(fleet.owner.get_uid());
     int del = fleet.update(me->get_moship()->get_x(), me->get_moship()->get_y(), gametime, frametime);
     window.Draw(sf::Shape::Circle(fleet.screenX, fleet.screenY, 20, sf::Color::Red)); // TODO debug
-    deletemes.push_back(fleets[i]);
-    continue;
+    if(del > 0){
+      deletemes.push_back(fleets[i]);
+      continue;
+    }
     for( int j=0; j<fleet.ships.size(); ++j){
       Ship * s = fleet.ships[i];
       ship.AddPoint(s->screenX+5, s->screenY,   c, c);
