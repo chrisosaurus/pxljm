@@ -125,6 +125,7 @@ void Interfacing::main(){
             
             //std::cout << "I should be launcing a fleet" << std::endl;
             game.launch_fleet(*p, *p2, clock.GetElapsedTime());
+            mx=-1, my=-1, lx=-1, ly=-1;
             //std::cout << "launched!" << std::endl;
             // give dest planet a green border
             sf::Shape s = sf::Shape::Circle(p2->get_x(), p2->get_y(), p2->get_radius(), sf::Color::Black, 2, sf::Color::Green);
