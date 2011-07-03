@@ -36,16 +36,15 @@ sf::Color Interfacing::colour_from_uid(int uid){
 Interfacing::Interfacing(ClientGame& ga, Player *p)
   : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close),
     game(ga) {
-      sf::Image i;
-      i.LoadFromFile("bg.png");
-      bg.SetImage(i);
+      bgimage.LoadFromFile("bg.png");
+      bg.SetImage(bgimage);
       me = p;
       window.SetFramerateLimit(60);
 }
 
 void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleets){
   window.Clear();
-  //window.Draw(bg); // TODO bg all white >.>
+  window.Draw(bg); // TODO bg all white >.>
 
   unsigned int frametime = window.GetFrameTime();
   unsigned int gametime = clock.GetElapsedTime(); // TODO to be consistant, is this ok?
