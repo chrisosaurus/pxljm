@@ -131,19 +131,19 @@ void Interfacing::main(){
             s.EnableFill(false);
             window.Draw(s);
             window.Display();
-          } else {
+          } /*else {
             sf::Shape s = sf::Shape::Circle(p2->get_x(), p2->get_y(), p2->get_radius(), sf::Color::Black, 2, sf::Color::Red);
             s.EnableFill(false);
             window.Draw(s);
             window.Display();
-          }
+          }*/
         } else {
           // no planet in the from position, so no event can happen
           lx = mx;
           ly = my;
           //highlight the planet clicked just for shits and giggles
           Planet *p = game.find_nearest_planet(lx,ly, 1);
-          if(p){ // red outline
+          if( p && p->get_player() && p->get_player()->get_uid() == me->get_uid() ){ // red outline
             sf::Shape s = sf::Shape::Circle(p->get_x(), p->get_y(), p->get_radius(), sf::Color::Black, 2, sf::Color::Red);
             s.EnableFill(false);
             window.Draw(s);
@@ -155,7 +155,7 @@ void Interfacing::main(){
         ly = my;
         Planet *p = game.find_nearest_planet(lx,ly);
         //std::cout << "nothing last frame, recording" << std::endl;
-        if(p){ // highlight planet with red outline
+        if( p && p->get_player() && p->get_player()->get_uid() == me->get_uid() ){ // red outline
             //if( p->get_player() != me )
             //  continue;
             sf::Shape s = sf::Shape::Circle(p->get_x(), p->get_y(), p->get_radius(), sf::Color::Black, 2, sf::Color::Red);
