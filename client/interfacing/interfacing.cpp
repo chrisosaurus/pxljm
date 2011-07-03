@@ -44,22 +44,30 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
   unsigned int frametime = window.GetFrameTime();
   unsigned int gametime = clock.GetElapsedTime(); // TODO to be consistant, is this ok?
   
+  std::vector<Fleet*> deletemes;
+
   // draw ships first
   for( int i=0; i<fleets.size(); ++i){
     sf::Shape ship;
     Fleet &fleet = *fleets[i];
     sf::Color c = colour_from_uid(fleet.owner.get_uid());
-    fleet.update(me->get_moship()->get_x(), me->get_moship()->get_y(), gametime, frametime);
+    int del = fleet.update(me->get_moship()->get_x(), me->get_moship()->get_y(), gametime, frametime);
+    window.Draw(sf::Shape::Circle(fleet.screenX, fleet.screenY, 20, sf::Color::Red)); // TODO debug
+    deletemes.push_back(fleets[i]);
+    continue;
     for( int j=0; j<fleet.ships.size(); ++j){
       Ship * s = fleet.ships[i];
-      ship.AddPoint(s->screenX+1, s->screenY,   c, c);
-      ship.AddPoint(s->screenX-1, s->screenY-1, c, c);
-      ship.AddPoint(s->screenX-1, s->screenY+1, c, c);
-      ship.EnableFill(false);
+      ship.AddPoint(s->screenX+5, s->screenY,   c, c);
+      ship.AddPoint(s->screenX-5, s->screenY-5, c, c);
+      ship.AddPoint(s->screenX-5, s->screenY+5, c, c);
+      ship.EnableFill(true);
       ship.Rotate(s->rot * PI/180); // oh god, it burns! also: PI is exactly 3
       window.Draw(ship);
     }
   }
+
+  for( int i=0; i<deletemes.size(); ++i)
+    game.remove_fleet(deletemes[i]);
 
   for( int i=0; i<planets.size(); ++i) {
     const Player * p = planets[i]->get_player();
