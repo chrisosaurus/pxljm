@@ -13,10 +13,12 @@ class Interfacing{
     sf::Sprite bg;
     sf::Image bgimage;
     void draw_string(const std::string &val, int x, int y, int offset=0);
+    bool gg;
   public:
     // this is a constructor, herpa derpety derp
     Interfacing(ClientGame& ga, Player *p);
 
+    void end_game(int player); // who has won
 
     void draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleets);
 

@@ -38,14 +38,25 @@ sf::Color Interfacing::colour_from_uid(int uid){
 
 Interfacing::Interfacing(ClientGame& ga, Player *p)
   : window(sf::VideoMode(1024, 600), "awesome title of doom", sf::Style::Close),
-    game(ga) {
+    game(ga), gg(false) {
       bgimage.LoadFromFile("bg.png");
       bg.SetImage(bgimage);
       me = p;
       window.SetFramerateLimit(60);
 }
 
+void Interfacing::end_game(int player){
+  gg = true;
+  window.Clear();
+  window.Draw(bg);
+  std::stringstream ss;
+  ss << "Player " << player << " has won!, bow down to him, build statues, etc.";
+  draw_string(ss.str(), 1024/2, 600/2);
+  window.Display();
+}
+
 void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleets){
+  if(gg) return;
   window.Clear();
   window.Draw(bg); // TODO bg all white >.>
 
@@ -108,7 +119,7 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
 
 void Interfacing::draw_string(const std::string &val, int x, int y, int offset){
   sf::Text text(val);
-  text.SetX(x);
+  text.SetX(x-5);
   text.SetY(y+offset);
   window.Draw(text);
   //window.Display(); // TODO possibly remove, depending if public or private (if priv, dont need)
