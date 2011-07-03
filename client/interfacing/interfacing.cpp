@@ -67,11 +67,11 @@ void Interfacing::draw(std::vector<Planet*> &planets, std::vector<Fleet*> &fleet
       Ship * s = fleet.ships[j];
       if(!s) continue;
       std::cout << "drawing a shippity doo daa " << s->screenX << "," << s->screenY << " : " << s<< std::endl;
-      ship.AddPoint(s->screenX+5, s->screenY,   c, c);
-      ship.AddPoint(s->screenX-5, s->screenY-5, c, c);
-      ship.AddPoint(s->screenX-5, s->screenY+5, c, c);
+      ship.AddPoint(s->screenX+1, s->screenY,   c, c);
+      ship.AddPoint(s->screenX-3, s->screenY-2, c, c);
+      ship.AddPoint(s->screenX-3, s->screenY+2, c, c);
       ship.EnableFill(false);
-      ship.SetOutlineThickness(2);
+      ship.SetOutlineThickness(1);
       ship.Rotate(s->rot * PI/180); // oh god, it burns! also: PI is exactly 3
       window.Draw(ship);
     }
